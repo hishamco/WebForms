@@ -12,6 +12,8 @@ namespace My.AspNetCore.WebForms
 {
     public abstract class Page
     {
+        private Button _postBackSender;
+
         public event EventHandler Load;
 
         protected internal string Content { get; set; }
@@ -28,6 +30,7 @@ namespace My.AspNetCore.WebForms
 
             if (IsPostBack)
             {
+                GetPostedData();
                 ExecutePostBackCode();
             }
 
@@ -72,16 +75,36 @@ namespace My.AspNetCore.WebForms
             }
         }
 
+        private void GetPostedData()
+        {
+            foreach (var ctrl in Controls)
+            {
+                var form = Context.Request.Form;
+
+                if (form.ContainsKey(ctrl.Id))
+                {
+                    switch (ctrl.GetType().Name)
+                    {
+                        case "Button":
+                            _postBackSender = (Button)ctrl;
+                            break;
+                        case "TextBox":
+                            ((TextBox)ctrl).Text = form[ctrl.Id].ToString();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
         private void ExecutePostBackCode()
         {
-            var sender = Controls.OfType<Button>()
-                .SingleOrDefault(c => Context.Request.Form.ContainsKey(c.Id));
-
-            if (sender != null)
+            if (_postBackSender != null)
             {
-                sender.GetType()
+                _postBackSender.GetType()
                     .GetMethod("OnClick", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Invoke(sender, null);
+                    .Invoke(_postBackSender, null);
             }
         }
     }
