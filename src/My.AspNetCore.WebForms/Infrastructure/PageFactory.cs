@@ -13,6 +13,11 @@ namespace My.AspNetCore.WebForms.Infrastructure
             var pageFullName = string.Join(".", assemblyName, pagesFolder, type);
             var pageType = assembly.GetType(pageFullName);
 
+            if (pageType == null)
+            {
+                return null;
+            }
+
             return (Page)Activator.CreateInstance(pageType);
         }
     }

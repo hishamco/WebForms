@@ -35,6 +35,12 @@ namespace My.AspNetCore.WebForms
 
             var page = _pageFactory.CreatePage(path);
 
+            if (page == null)
+            {
+                context.Response.StatusCode = 404;
+                return;
+            }
+
             page.Context = context;
             await page.RenderAsync();
         }
