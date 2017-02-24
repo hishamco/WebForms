@@ -10,8 +10,10 @@ namespace WebFormsSample.Pages
 
         public Index()
         {
-            litGreeting = new Literal();
-
+            litGreeting = new Literal()
+            {
+                Id = "litGreeting"
+            };
             this.Load += Page_Load;
             this.Controls.Add(litGreeting);
         }
