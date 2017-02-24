@@ -4,6 +4,8 @@ using My.AspNetCore.WebForms.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace My.AspNetCore.WebForms
@@ -23,6 +25,11 @@ namespace My.AspNetCore.WebForms
         public async virtual Task RenderAsync()
         {
             OnLoad();
+
+            if (IsPostBack)
+            {
+                ExecutePostBackCode();
+            }
 
             var env = (IHostingEnvironment)Context.RequestServices
                 .GetService(typeof(IHostingEnvironment));
@@ -62,6 +69,19 @@ namespace My.AspNetCore.WebForms
                 var endIndex = Content.IndexOf($"</asp:{typeName}>") + typeName.Length + 7;
 
                 Content = Content.Replace(Content.Substring(startIndex, endIndex - startIndex), ctrl.InnerHtml);
+            }
+        }
+
+        private void ExecutePostBackCode()
+        {
+            var sender = Controls.OfType<Button>()
+                    .SingleOrDefault(c => Context.Request.Form.ContainsKey(c.Id));
+
+            if (sender != null)
+            {
+                sender.GetType()
+                    .GetMethod("OnClick", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Invoke(sender, null);
             }
         }
     }
