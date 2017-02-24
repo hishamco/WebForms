@@ -12,18 +12,8 @@ namespace My.AspNetCore.WebForms
 
         public WebFormsMiddleware(IPageFactory pageFactory, RequestDelegate next)
         {
-            if (pageFactory == null)
-            {
-                throw new ArgumentNullException(nameof(pageFactory));
-            }
-
-            if (next == null)
-            {
-                throw new ArgumentNullException(nameof(next));
-            }
-
-            _pageFactory = pageFactory;
-            _next = next;
+            _pageFactory = pageFactory ?? throw new ArgumentNullException(nameof(pageFactory));
+            _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
         public async Task Invoke(HttpContext context)

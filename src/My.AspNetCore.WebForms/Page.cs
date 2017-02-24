@@ -21,7 +21,9 @@ namespace My.AspNetCore.WebForms
             var env = (IHostingEnvironment)Context.RequestServices
                 .GetService(typeof(IHostingEnvironment));
             var pagesFolder = "Pages";
-            var path = Path.Combine(pagesFolder, GetType().Name + ".htm");
+            const string htmlExtension = ".htm";
+            var pageName = GetType().Name + htmlExtension;
+            var path = Path.Combine(pagesFolder, pageName);
             var fileInfo = env.ContentRootFileProvider
                 .GetFileInfo(path);
 
@@ -38,10 +40,7 @@ namespace My.AspNetCore.WebForms
 
         protected virtual void OnLoad()
         {
-            if (Load != null)
-            {
-                Load(this, EventArgs.Empty);
-            }
+            Load?.Invoke(this, EventArgs.Empty);
         }
     }
 }
