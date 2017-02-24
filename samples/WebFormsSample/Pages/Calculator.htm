@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ASP.NET Core Web Forms</title>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <form action="/Calculator" method="post">
+        <asp:TextBox id="txtNumber1"></asp:TextBox> + 
+        <asp:TextBox id="txtNumber2"></asp:TextBox>
+        <asp:Button id="btnAdd" Text="Add" Click="btn_Add"></asp:Button><br/><br/>
+        <asp:Literal id="ltrResult"></asp:Literal>       
+    </form>
+</body>
+</html>
