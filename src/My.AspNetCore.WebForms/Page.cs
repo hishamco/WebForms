@@ -75,7 +75,7 @@ namespace My.AspNetCore.WebForms
         private void ExecutePostBackCode()
         {
             var sender = Controls.OfType<Button>()
-                    .SingleOrDefault(c => Context.Request.Form.ContainsKey(c.Id));
+                .SingleOrDefault(c => Context.Request.Form.ContainsKey(c.Id));
 
             if (sender != null)
             {
