@@ -18,6 +18,8 @@ namespace My.AspNetCore.WebForms
 
         public IList<Control> Controls { get; set; } = new List<Control>();
 
+        public bool IsPostBack => Context.Request.Method == "POST";
+
         public async virtual Task RenderAsync()
         {
             OnLoad();

@@ -6,6 +6,10 @@
 </head>
 <body>
     <h1>Home</h1>
-    <asp:Literal id="ltrGreeting"></asp:Literal>
+    <form action="/" method="post">
+        <asp:Literal id="ltrGreeting"></asp:Literal><br />
+        <input type="submit" value="Send" />
+        <asp:Literal id="ltrPostBack" Text="IsPostBack: False"></asp:Literal>
+    </form>
 </body>
 </html>
