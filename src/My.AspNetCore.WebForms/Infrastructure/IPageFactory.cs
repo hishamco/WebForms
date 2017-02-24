@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace My.AspNetCore.WebForms.Infrastructure
+﻿namespace My.AspNetCore.WebForms.Infrastructure
 {
     public interface IPageFactory
     {
-        object CreatePage(string type);
+        Page CreatePage(string type);
     }
 }

@@ -43,7 +43,7 @@ namespace My.AspNetCore.WebForms
                 path = "Index";
             }
 
-            var page = (Page)_pageFactory.CreatePage(path);
+            var page = _pageFactory.CreatePage(path);
 
             page.Context = context;
             await page.RenderAsync();
