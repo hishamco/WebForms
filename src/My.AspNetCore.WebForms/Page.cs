@@ -24,16 +24,8 @@ namespace My.AspNetCore.WebForms
 
         public bool IsPostBack => Context.Request.Method == "POST";
 
-        public async virtual Task RenderAsync()
+        public async Task ExecuteAsync()
         {
-            OnLoad();
-
-            if (IsPostBack)
-            {
-                GetPostedData();
-                ExecutePostBackCode();
-            }
-
             var env = (IHostingEnvironment)Context.RequestServices
                 .GetService(typeof(IHostingEnvironment));
             var pagesFolder = "Pages";
@@ -49,8 +41,20 @@ namespace My.AspNetCore.WebForms
                 Content = await reader.ReadToEndAsync();
             }
 
-            RenderControls();
+            OnLoad();
 
+            if (IsPostBack)
+            {
+                GetPostedData();
+                ExecutePostBackCode();
+            }
+
+            await RenderAsync();
+        }
+
+        public async virtual Task RenderAsync()
+        {
+            RenderControls();
             Context.Response.StatusCode = 200;
             Context.Response.ContentType = "text/html; charset=utf-8";
             await Context.Response.WriteAsync(Content);

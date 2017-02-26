@@ -42,7 +42,7 @@ namespace My.AspNetCore.WebForms
             }
 
             page.Context = context;
-            await page.RenderAsync();
+            await page.ExecuteAsync();
         }
     }
 }
