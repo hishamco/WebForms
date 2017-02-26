@@ -3,13 +3,47 @@
 <head>
     <meta charset="utf-8" />
     <title>ASP.NET Core Web Forms</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 </head>
 <body>
     <h1>Home</h1>
-    <form method="post">
+    <form id="frm" method="post">
         <asp:Literal Name="litGreeting"></asp:Literal><br />
         <asp:Button Name="btnPost" Text="Post"></asp:Button>
         <asp:Literal Name="litPostBack" Text="IsPostBack: False"></asp:Literal>
     </form>
+    <script type="text/javascript">
+        //$(function () {
+        //    $("#frm").submit(function (e) {
+
+        //        var url = "/"; // the script where you handle the form input.
+
+        //        $.ajax({
+        //            type: "POST",
+        //            url: url,
+        //            data: $("#frm").serialize(), // serializes the form's elements.
+        //            success: function (data) {
+        //                alert(data); // show response from the php script.
+        //            }
+        //        });
+
+        //        e.preventDefault(); // avoid to execute the actual submit of the form.
+        //    });
+        //})
+
+        $('#frm').submit(function (e) {
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: { btnPost: 'Post' },
+                dataType: 'html',
+                success: function (data) {
+                    $("body").html(data);
+                }
+            });
+
+            e.preventDefault();
+        });
+    </script>
 </body>
 </html>
