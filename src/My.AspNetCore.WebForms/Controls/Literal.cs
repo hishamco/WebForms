@@ -11,7 +11,7 @@ namespace My.AspNetCore.WebForms.Controls
         {
             if (Text?.Length > 0)
             {
-                await writer.WriteLineAsync(Text);
+                await writer.WriteAsync(Text);
             }
         }
     }
