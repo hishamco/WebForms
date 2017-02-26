@@ -14,12 +14,23 @@ namespace My.AspNetCore.WebForms
     public abstract class Page
     {
         private Button _postBackSender;
+        private string _content;
+        private HttpContext _context;
 
         public event EventHandler Load;
 
-        protected internal string Content { get; set; }
+        protected internal HttpContext Context
+        {
+            get
+            {
+                return _context;
+            }
 
-        protected internal HttpContext Context { get; set; }
+            internal set
+            {
+                _context = value ?? throw new ArgumentException(nameof(Context));
+            }
+        }
 
         public IList<Control> Controls { get; } = new List<Control>();
 
@@ -39,7 +50,7 @@ namespace My.AspNetCore.WebForms
             using (var readStream = fileInfo.CreateReadStream())
             using (var reader = new StreamReader(readStream))
             {
-                Content = await reader.ReadToEndAsync();
+                _content = await reader.ReadToEndAsync();
             }
 
             OnLoad();
@@ -55,10 +66,9 @@ namespace My.AspNetCore.WebForms
 
         public async virtual Task RenderAsync()
         {
-            var sb = new StringBuilder();
-            var writer = new StringWriter(sb);
+            var writer = new StringWriter(new StringBuilder());
 
-            foreach (var line in Content.Split('\n'))
+            foreach (var line in _content.Split('\n'))
             {
                 if (line.Contains("asp:"))
                 {
@@ -75,6 +85,23 @@ namespace My.AspNetCore.WebForms
             await Context.Response.WriteAsync(writer.GetStringBuilder().ToString());
         }
 
+        protected virtual void OnLoad()
+        {
+            Load?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async Task RenderControlAsync(string content, TextWriter writer)
+        {
+            var beginIndex = content.IndexOf("<asp:");
+            var endIndex = content.IndexOf('>',
+                content.IndexOf("</asp:")) + 1;
+
+            await writer.WriteAsync(content.Substring(0, beginIndex - 1));
+            var control = ParseControl(content.Substring(beginIndex, endIndex - beginIndex));
+            await control.RenderAsync(writer);
+            await writer.WriteAsync(content.Substring(endIndex));
+        }
+
         // TODO: Parse the control from actual string
         private Control ParseControl(string content)
         {
@@ -84,31 +111,6 @@ namespace My.AspNetCore.WebForms
             var name = content.Substring(nameStartIndex, quoteLastIndex - nameStartIndex);
 
             return Controls.SingleOrDefault(c => c.Name == name);
-        }
-
-        protected virtual void OnLoad()
-        {
-            Load?.Invoke(this, EventArgs.Empty);
-        }
-
-        private async Task RenderControlsAsync(TextWriter writer)
-        {
-            foreach (var ctrl in Controls)
-            {
-                await ctrl.RenderAsync(writer);
-            }
-        }
-
-        private async Task RenderControlAsync(string content, TextWriter writer)
-        {
-            var beginIndex = content.IndexOf("<asp:");
-            var endIndex = content.IndexOf('>',
-                content.IndexOf("</asp:"));
-
-            await writer.WriteAsync(content.Substring(0, beginIndex - 1));
-            var control = ParseControl(content.Substring(beginIndex));
-            await control.RenderAsync(writer);
-            await writer.WriteAsync(content.Substring(endIndex + 1));
         }
 
         private void GetPostedData()
@@ -121,10 +123,10 @@ namespace My.AspNetCore.WebForms
                 {
                     switch (ctrl.GetType().Name)
                     {
-                        case "Button":
+                        case nameof(Button):
                             _postBackSender = (Button)ctrl;
                             break;
-                        case "TextBox":
+                        case nameof(TextBox):
                             ((TextBox)ctrl).Text = form[ctrl.Name].ToString();
                             break;
                         default:
