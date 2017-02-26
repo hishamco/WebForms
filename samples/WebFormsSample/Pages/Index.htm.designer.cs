@@ -16,18 +16,18 @@
             // 
             // litGreeting
             // 
-            this.litGreeting.Id = "litGreeting";
+            this.litGreeting.Name = "litGreeting";
 
             // 
             // litPostBack
             // 
-            this.litPostBack.Id = "litPostBack";
+            this.litPostBack.Name = "litPostBack";
             this.litPostBack.Text = "IsPostBack: False";
 
             // 
             // btnPost
             // 
-            this.btnPost.Id = "btnPost";
+            this.btnPost.Name = "btnPost";
             this.btnPost.Text = "Post";
 
             this.Load += Page_Load;
