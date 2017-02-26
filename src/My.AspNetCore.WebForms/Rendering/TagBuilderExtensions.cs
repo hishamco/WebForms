@@ -25,5 +25,22 @@ namespace My.AspNetCore.WebForms.Rendering
         {
             builder.AddStyle(style.Attribute, style.Value);
         }
+
+        public static void AddCssClass(this TagBuilder builder, string @class)
+        {
+            if (string.IsNullOrEmpty(@class))
+            {
+                throw new ArgumentNullException(nameof(@class));
+            }
+
+            if (builder.Attributes.TryGetValue("class", out string currentClass))
+            {
+                builder.Attributes["class"] = currentClass + " " + @class;
+            }
+            else
+            {
+                builder.Attributes["class"] = @class;
+            }
+        }
     }
 }

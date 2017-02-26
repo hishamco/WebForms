@@ -25,5 +25,23 @@ namespace My.AspNetCore.WebForms.Tests
             Assert.Equal("<p style=\"color:#f00;font-size:14px\">This is paragraph</p>",
                 writer.GetStringBuilder().ToString());
         }
+
+        [Fact]
+        public void AddMultipleCssClassesShouldConcatenatedBySpace()
+        {
+            // Arrange
+            var builder = new TagBuilder("p");
+            var writer = new StringWriter(new StringBuilder());
+
+            // Act
+            builder.InnerHtml.Append("This is paragraph");
+            builder.AddCssClass("alert");
+            builder.AddCssClass("alert-info");
+            builder.WriteTo(writer, HtmlEncoder.Default);
+
+            // Assert
+            Assert.Equal("<p class=\"alert alert-info\">This is paragraph</p>",
+                writer.GetStringBuilder().ToString());
+        }
     }
 }
