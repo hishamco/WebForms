@@ -18,8 +18,11 @@ namespace My.AspNetCore.WebForms.Controls
             tagBuilder.Attributes.Add("name", Name);
             tagBuilder.Attributes.Add("type", "text");
             tagBuilder.Attributes.Add("value", Text);
-            tagBuilder.AddStyle(
-                new Style { Attribute = "display", Value = "none" });
+            if (!Visible)
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "display", Value = "none" });
+            }
             tagBuilder.WriteTo(writer, HtmlEncoder.Default);
 
             await Task.CompletedTask;
