@@ -70,7 +70,7 @@ namespace My.AspNetCore.WebForms
 
             foreach (var line in _content.Split('\n'))
             {
-                if (line.Contains("asp:"))
+                if (line.Contains($"{Control.TagPrefix}"))
                 {
                     await RenderControlAsync(line, writer);
                 }
@@ -92,9 +92,9 @@ namespace My.AspNetCore.WebForms
 
         private async Task RenderControlAsync(string content, TextWriter writer)
         {
-            var beginIndex = content.IndexOf("<asp:");
+            var beginIndex = content.IndexOf($"<{Control.TagPrefix}");
             var endIndex = content.IndexOf('>',
-                content.IndexOf("</asp:")) + 1;
+                content.IndexOf($"</{Control.TagPrefix}")) + 1;
 
             await writer.WriteAsync(content.Substring(0, beginIndex - 1));
             var control = ParseControl(content.Substring(beginIndex, endIndex - beginIndex));
