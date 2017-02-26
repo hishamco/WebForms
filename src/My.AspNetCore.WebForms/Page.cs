@@ -20,7 +20,7 @@ namespace My.AspNetCore.WebForms
 
         protected internal HttpContext Context { get; set; }
 
-        public IList<Control> Controls { get; set; } = new List<Control>();
+        public IList<Control> Controls { get; } = new List<Control>();
 
         public bool IsPostBack => Context.Request.Method == "POST";
 
