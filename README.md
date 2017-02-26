@@ -1,5 +1,5 @@
 # WebForms
-ASP.NET Core Web Forms is MVC alternative that use event-driven programming for building dynamic web application
+ASP.NET Core Web Forms is MVC alternative that use event-driven programming model for building dynamic web application
 
 ### What is this?
 This is just a prototype for building a new programming model for ASP.NET Core (alternative for MVC), that use event-driven programming. It's simillar to previous ASP.NET Web Forms that we know and love, with new flavour 
@@ -10,6 +10,7 @@ The project is still in the early stages, but I have some points in my mind to s
 - Page Lifecycle is not like the previous ASP.NET WebForms
 - Provide a set of rich server controls that render a clean HTML markup, without wired IDs
 - No `ViewState` anymore
+- No Page Directives
 - No View Engine yet!! it's a pure HTML page with rich server controls, perhaps we can use `Razor` or any other view engine later on, but I'm thinking to use sort of client-side template language like `Mustache`
 
 ### Why are Web Forms using .htm, .htm.cs instead of .aspx, .aspx.cs?
