@@ -21,15 +21,9 @@ namespace My.AspNetCore.WebForms
 
         protected internal HttpContext Context
         {
-            get
-            {
-                return _context;
-            }
+            get => _context;
 
-            internal set
-            {
-                _context = value ?? throw new ArgumentException(nameof(Context));
-            }
+            internal set => _context = value ?? throw new ArgumentException(nameof(Context));
         }
 
         public IList<Control> Controls { get; } = new List<Control>();
@@ -38,13 +32,11 @@ namespace My.AspNetCore.WebForms
 
         public async Task ExecuteAsync()
         {
-            var env = (IHostingEnvironment)Context.RequestServices
-                .GetService(typeof(IHostingEnvironment));
-            var pagesFolder = "Pages";
             const string htmlExtension = ".htm";
             var pageName = GetType().Name + htmlExtension;
-            var path = Path.Combine(pagesFolder, pageName);
-            var fileInfo = env.ContentRootFileProvider
+            var path = Path.Combine("Pages", pageName);
+            var fileInfo = ((IHostingEnvironment)Context.RequestServices
+                .GetService(typeof(IHostingEnvironment))).ContentRootFileProvider
                 .GetFileInfo(path);
 
             using (var readStream = fileInfo.CreateReadStream())
@@ -95,17 +87,21 @@ namespace My.AspNetCore.WebForms
             var beginIndex = content.IndexOf($"<{Control.TagPrefix}");
             var endIndex = content.IndexOf('>',
                 content.IndexOf($"</{Control.TagPrefix}")) + 1;
+            var control = ParseControl(content
+                .Substring(beginIndex, endIndex - beginIndex));
 
+            // Render any content before the control
             await writer.WriteAsync(content.Substring(0, beginIndex - 1));
-            var control = ParseControl(content.Substring(beginIndex, endIndex - beginIndex));
+            // Render the actual control
             await control.RenderAsync(writer);
+            // Render any content after the control
             await writer.WriteAsync(content.Substring(endIndex));
         }
 
         // TODO: Parse the control from actual string
         private Control ParseControl(string content)
         {
-            // Now it's fine to look for the control name in the Controls property
+            // Now it's fine to look for the control by its name in the Controls property
             var nameStartIndex = content.IndexOf("Name=") + 6;
             var quoteLastIndex = content.IndexOf('"', nameStartIndex);
             var name = content.Substring(nameStartIndex, quoteLastIndex - nameStartIndex);
