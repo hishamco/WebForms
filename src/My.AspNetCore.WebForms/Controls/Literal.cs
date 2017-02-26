@@ -12,6 +12,11 @@ namespace My.AspNetCore.WebForms.Controls
 
         public async override Task RenderAsync(TextWriter writer)
         {
+            if (!Visible)
+            {
+                await Task.CompletedTask;
+            }
+
             if (Text?.Length > 0)
             {
                 if (Encoded)

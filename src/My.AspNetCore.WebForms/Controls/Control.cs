@@ -9,6 +9,8 @@ namespace My.AspNetCore.WebForms.Controls
 
         public string Name { get; set; }
 
+        public bool Visible { get; set; } = true;
+
         public abstract Task RenderAsync(TextWriter writer);
     }
 }
