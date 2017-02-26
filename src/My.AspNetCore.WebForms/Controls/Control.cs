@@ -1,11 +1,12 @@
-﻿namespace My.AspNetCore.WebForms.Controls
+﻿using System.IO;
+using System.Threading.Tasks;
+
+namespace My.AspNetCore.WebForms.Controls
 {
     public abstract class Control
     {
         public string Name { get; set; }
 
-        public string InnerHtml { get; protected set; }
-
-        public abstract void Render();
+        public abstract Task RenderAsync(TextWriter writer);
     }
 }

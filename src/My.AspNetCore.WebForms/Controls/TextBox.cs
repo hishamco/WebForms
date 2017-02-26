@@ -1,12 +1,15 @@
-﻿namespace My.AspNetCore.WebForms.Controls
+﻿using System.IO;
+using System.Threading.Tasks;
+
+namespace My.AspNetCore.WebForms.Controls
 {
     public class TextBox : Control
     {
         public string Text { get; set; }
 
-        public override void Render()
+        public async override Task RenderAsync(TextWriter writer)
         {
-            InnerHtml = $"<input name=\"{Id}\" type=\"text\" value=\"{Text}\" />";
+            await writer.WriteLineAsync($"<input name=\"{Name}\" type=\"text\" value=\"{Text}\" />");
         }
     }
 }

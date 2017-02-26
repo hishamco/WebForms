@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace My.AspNetCore.WebForms.Controls
 {
@@ -13,9 +15,9 @@ namespace My.AspNetCore.WebForms.Controls
             Click?.Invoke(this, EventArgs.Empty);
         }
 
-        public override void Render()
+        public async override Task RenderAsync(TextWriter writer)
         {
-            InnerHtml = $"<input name=\"{Id}\" type=\"submit\" value=\"{Text}\" />";
+            await writer.WriteLineAsync($"<input name=\"{Name}\" type=\"submit\" value=\"{Text}\" />");
         }
     }
 }

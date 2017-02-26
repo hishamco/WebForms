@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace My.AspNetCore.WebForms
@@ -54,10 +55,35 @@ namespace My.AspNetCore.WebForms
 
         public async virtual Task RenderAsync()
         {
-            RenderControls();
+            var sb = new StringBuilder();
+            var writer = new StringWriter(sb);
+
+            foreach (var line in Content.Split('\n'))
+            {
+                if (line.Contains("asp:"))
+                {
+                    await RenderControlAsync(line, writer);
+                }
+                else
+                {
+                    await writer.WriteAsync(line);
+                }
+            }
+
             Context.Response.StatusCode = 200;
             Context.Response.ContentType = "text/html; charset=utf-8";
-            await Context.Response.WriteAsync(Content);
+            await Context.Response.WriteAsync(writer.GetStringBuilder().ToString());
+        }
+
+        // TODO: Parse the control from actual string
+        private Control ParseControl(string content)
+        {
+            // Now it's fine to look for the control name in the Controls property
+            var nameStartIndex = content.IndexOf("Name=") + 6;
+            var quoteLastIndex = content.IndexOf('"', nameStartIndex);
+            var name = content.Substring(nameStartIndex, quoteLastIndex - nameStartIndex);
+
+            return Controls.SingleOrDefault(c => c.Name == name);
         }
 
         protected virtual void OnLoad()
@@ -65,18 +91,24 @@ namespace My.AspNetCore.WebForms
             Load?.Invoke(this, EventArgs.Empty);
         }
 
-        private void RenderControls()
+        private async Task RenderControlsAsync(TextWriter writer)
         {
             foreach (var ctrl in Controls)
             {
-                ctrl.Render();
-
-                var typeName = ctrl.GetType().Name;
-                var startIndex = Content.IndexOf($"<asp:{typeName}");
-                var endIndex = Content.IndexOf($"</asp:{typeName}>") + typeName.Length + 7;
-
-                Content = Content.Replace(Content.Substring(startIndex, endIndex - startIndex), ctrl.InnerHtml);
+                await ctrl.RenderAsync(writer);
             }
+        }
+
+        private async Task RenderControlAsync(string content, TextWriter writer)
+        {
+            var beginIndex = content.IndexOf("<asp:");
+            var endIndex = content.IndexOf('>',
+                content.IndexOf("</asp:"));
+
+            await writer.WriteAsync(content.Substring(0, beginIndex - 1));
+            var control = ParseControl(content.Substring(beginIndex));
+            await control.RenderAsync(writer);
+            await writer.WriteAsync(content.Substring(endIndex + 1));
         }
 
         private void GetPostedData()
@@ -85,7 +117,7 @@ namespace My.AspNetCore.WebForms
             {
                 var form = Context.Request.Form;
 
-                if (form.ContainsKey(ctrl.Id))
+                if (form.ContainsKey(ctrl.Name))
                 {
                     switch (ctrl.GetType().Name)
                     {
@@ -93,7 +125,7 @@ namespace My.AspNetCore.WebForms
                             _postBackSender = (Button)ctrl;
                             break;
                         case "TextBox":
-                            ((TextBox)ctrl).Text = form[ctrl.Id].ToString();
+                            ((TextBox)ctrl).Text = form[ctrl.Name].ToString();
                             break;
                         default:
                             break;
