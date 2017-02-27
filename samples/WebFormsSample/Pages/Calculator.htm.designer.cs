@@ -4,7 +4,7 @@
     {
         private global::My.AspNetCore.WebForms.Controls.TextBox txtNumber1;
         private global::My.AspNetCore.WebForms.Controls.TextBox txtNumber2;
-        private global::My.AspNetCore.WebForms.Controls.Button bntAdd;
+        private global::My.AspNetCore.WebForms.Controls.Button btnAdd;
         private global::My.AspNetCore.WebForms.Controls.Literal litResult;
 
         #region Web Form Designer generated code
@@ -12,7 +12,7 @@
         {
             txtNumber1 = new global::My.AspNetCore.WebForms.Controls.TextBox();
             txtNumber2 = new global::My.AspNetCore.WebForms.Controls.TextBox();
-            bntAdd = new global::My.AspNetCore.WebForms.Controls.Button();
+            btnAdd = new global::My.AspNetCore.WebForms.Controls.Button();
             litResult = new global::My.AspNetCore.WebForms.Controls.Literal();
 
             // 
@@ -28,9 +28,9 @@
             // 
             // btnAdd
             // 
-            this.bntAdd.Name = "btnAdd";
-            this.bntAdd.Text = "Add";
-            this.bntAdd.Click += btnAdd_Click;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Text = "Add";
+            this.btnAdd.Click += btnAdd_Click;
 
             // 
             // litResult
@@ -39,7 +39,7 @@
 
             this.Controls.Add(txtNumber1);
             this.Controls.Add(txtNumber2);
-            this.Controls.Add(bntAdd);
+            this.Controls.Add(btnAdd);
             this.Controls.Add(litResult);
         }
         #endregion
