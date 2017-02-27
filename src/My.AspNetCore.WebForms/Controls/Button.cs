@@ -10,6 +10,8 @@ namespace My.AspNetCore.WebForms.Controls
     {
         public event EventHandler Click;
 
+        public event CommandEventHandler Command;
+
         public string Text { get; set; }
 
         public int BorderWidth { get; set; }
@@ -34,9 +36,20 @@ namespace My.AspNetCore.WebForms.Controls
 
         public Font Font { get; set; }
 
+        public string CommandName { get; set; }
+
+        public string CommandArgument { get; set; }
+
         protected virtual void OnClick()
         {
             Click?.Invoke(this, EventArgs.Empty);
+            OnCommand(CommandName, CommandArgument);
+        }
+
+        protected virtual void OnCommand(string commandName, string commandArgument)
+        {
+            Command?.Invoke(this,
+                new CommandEventArgs(commandName, commandArgument));
         }
 
         public async override Task RenderAsync(TextWriter writer)
@@ -151,6 +164,16 @@ namespace My.AspNetCore.WebForms.Controls
                     tagBuilder.AddStyle(
                         new Style { Attribute = "text-decoration", Value = "line-throug" });
                 }
+            }
+
+            if (string.IsNullOrEmpty(CommandName))
+            {
+                tagBuilder.Attributes.Add("data-commandName", CommandName);
+            }
+
+            if (string.IsNullOrEmpty(CommandArgument))
+            {
+                tagBuilder.Attributes.Add("data-commandArgument", CommandArgument);
             }
 
             tagBuilder.WriteTo(writer, HtmlEncoder.Default);
