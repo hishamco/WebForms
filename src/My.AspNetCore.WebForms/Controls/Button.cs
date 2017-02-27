@@ -12,6 +12,28 @@ namespace My.AspNetCore.WebForms.Controls
 
         public string Text { get; set; }
 
+        public int BorderWidth { get; set; }
+
+        public BorderStyle BorderStyle { get; set; } = BorderStyle.None;
+
+        public string BorderColor { get; set; }
+
+        public string BackColor { get; set; }
+
+        public string ForeColor { get; set; }
+
+        public string CssClass { get; set; }
+
+        public bool Enabled { get; set; } = true;
+
+        public int Height { get; set; }
+
+        public int Width { get; set; }
+
+        public string ToolTip { get; set; }
+
+        public Font Font { get; set; }
+
         protected virtual void OnClick()
         {
             Click?.Invoke(this, EventArgs.Empty);
@@ -23,14 +45,109 @@ namespace My.AspNetCore.WebForms.Controls
             {
                 TagRenderMode = TagRenderMode.SelfClosing
             };
+
             tagBuilder.Attributes.Add("name", Name);
             tagBuilder.Attributes.Add("type", "submit");
             tagBuilder.Attributes.Add("value", Text);
+
             if (!Visible)
             {
                 tagBuilder.AddStyle(
                     new Style { Attribute = "display", Value = "none" });
             }
+
+            if (BorderWidth > 0)
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "border-width", Value = $"{BorderWidth}px" });
+            }
+
+            if (BorderStyle > BorderStyle.None)
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "border-style",
+                        Value = BorderStyle.ToString().ToLower() });
+            }
+
+            if (!string.IsNullOrEmpty(BorderColor))
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "border-color", Value = BorderColor });
+            }
+
+            if (!string.IsNullOrEmpty(BackColor))
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "background-color", Value = BackColor });
+            }
+
+            if (!string.IsNullOrEmpty(ForeColor))
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "color", Value = ForeColor });
+            }
+
+            if (!string.IsNullOrEmpty(CssClass))
+            {
+                tagBuilder.AddCssClass(CssClass);
+            }
+
+            if (Height > 0)
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "hidth", Value = $"{Height}px" });
+            }
+
+            if (Width > 0)
+            {
+                tagBuilder.AddStyle(
+                    new Style { Attribute = "width", Value = $"{Width}px" });
+            }
+
+            if (!string.IsNullOrEmpty(ToolTip))
+            {
+                tagBuilder.Attributes.Add("title", ToolTip);
+            }
+
+            if (Font != null)
+            {
+                if (!string.IsNullOrEmpty(Font.Name))
+                {
+                    tagBuilder.AddStyle(
+                        new Style { Attribute = "font-family", Value = Font.Name });
+                }
+
+                if (Font.Size > 0)
+                {
+                    tagBuilder.AddStyle(
+                        new Style { Attribute = "font-size", Value = $"{Font.Size}px" });
+                }
+
+                if (Font.Bold)
+                {
+                    tagBuilder.AddStyle(
+                        new Style { Attribute = "font-weight", Value = "bold" });
+                }
+
+                if (Font.Italic)
+                {
+                    tagBuilder.AddStyle(
+                        new Style { Attribute = "font-style", Value = "italic" });
+                }
+
+                if (Font.Underline)
+                {
+                    tagBuilder.AddStyle(
+                        new Style { Attribute = "text-decoration", Value = "underline" });
+                }
+
+                if (Font.Stirkeout)
+                {
+                    tagBuilder.AddStyle(
+                        new Style { Attribute = "text-decoration", Value = "line-throug" });
+                }
+            }
+
             tagBuilder.WriteTo(writer, HtmlEncoder.Default);
 
             await Task.CompletedTask;
