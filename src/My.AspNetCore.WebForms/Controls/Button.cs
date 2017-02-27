@@ -92,6 +92,11 @@ namespace My.AspNetCore.WebForms.Controls
                 tagBuilder.AddCssClass(CssClass);
             }
 
+            if (!Enabled)
+            {
+                tagBuilder.Attributes.Add("disabled", "disabled");
+            }
+
             if (Height > 0)
             {
                 tagBuilder.AddStyle(
