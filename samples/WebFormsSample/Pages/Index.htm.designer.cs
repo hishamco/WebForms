@@ -30,6 +30,7 @@
             this.btnPost.Name = "btnPost";
             this.btnPost.Text = "Post";
 
+            this.Title = "Home";
             this.Load += Page_Load;
             this.Controls.Add(litGreeting);
             this.Controls.Add(litPostBack);

@@ -68,6 +68,7 @@
             // 
             this.litResult.Name = "litResult";
 
+            this.Title = "Calculator";
             this.Controls.Add(txtNumber1);
             this.Controls.Add(txtNumber2);
             this.Controls.Add(btnAdd);
