@@ -30,6 +30,8 @@ namespace My.AspNetCore.WebForms
 
         public bool IsPostBack => Context.Request.Method == "POST";
 
+        public string Title { get; set; }
+
         public async Task ExecuteAsync()
         {
             const string htmlExtension = ".htm";
