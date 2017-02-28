@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using My.AspNetCore.WebForms.Controls;
+using My.AspNetCore.WebForms.Templating;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,9 +75,14 @@ namespace My.AspNetCore.WebForms
                 }
             }
 
+            var template = (ITemplate) Context.RequestServices
+                .GetService(typeof(ITemplate));
+            _content = await template
+                .ParseAsync(writer.GetStringBuilder().ToString(), this);
+
             Context.Response.StatusCode = 200;
             Context.Response.ContentType = "text/html; charset=utf-8";
-            await Context.Response.WriteAsync(writer.GetStringBuilder().ToString());
+            await Context.Response.WriteAsync(_content);
         }
 
         protected virtual void OnLoad()

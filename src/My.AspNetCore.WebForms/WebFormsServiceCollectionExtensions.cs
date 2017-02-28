@@ -1,4 +1,5 @@
 ﻿using My.AspNetCore.WebForms.Infrastructure;
+using My.AspNetCore.WebForms.Templating;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -15,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddOptions();
 
             services.AddSingleton<IPageFactory, PageFactory>();
+            services.AddSingleton<ITemplate, NullTemplate>();
 
             return services;
         }
