@@ -1,0 +1,30 @@
+﻿using My.AspNetCore.WebForms.Templating;
+using System;
+using WebFormsSample.Templates;
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static class WebFormsServiceCollectionExtensions
+    {
+        public static IServiceCollection WithSimpleTemplate(this IServiceCollection services)
+        {
+            if (services == null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+
+            services.AddOptions();
+ 
+            // Get the registered ITemplate service from DI container
+            var serviceProvider = services.BuildServiceProvider();
+            var templatingService = serviceProvider.GetRequiredService<ITemplate>();
+            var templatingServiceDescriptor = new ServiceDescriptor(typeof(ITemplate), templatingService);
+
+            // Replace the ITemplate service with the new one
+            services.Remove(templatingServiceDescriptor);
+            services.AddSingleton<ITemplate, SimpleTemplate>();
+
+            return services;
+        }
+    }
+}
