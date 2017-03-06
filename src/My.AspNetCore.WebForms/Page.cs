@@ -52,8 +52,15 @@ namespace My.AspNetCore.WebForms
 
             if (IsPostBack)
             {
-                GetPostedData();
-                ExecutePostBackCode();
+                var postBackData = Context.Request.Form.ToDictionary(i => i.Key, i=> i.Value.ToString());
+                var postBackEventHandlers = Controls
+                    .Where(c => c.GetType().GetInterfaces()
+                    .Contains(typeof(IPostBackEventHandler))).ToList();
+                var postBackEventHandler = (IPostBackEventHandler)postBackEventHandlers
+                    .Single(c => postBackData.ContainsKey(c.Name));
+
+                RaisePostBackDataEvent(postBackData);
+                RaisePostBackEvent(postBackEventHandler);
             }
 
             await RenderAsync();
@@ -117,37 +124,18 @@ namespace My.AspNetCore.WebForms
             return Controls.SingleOrDefault(c => c.Name == name);
         }
 
-        private void GetPostedData()
+        private void RaisePostBackDataEvent(IDictionary<string, string> postBackData)
         {
-            foreach (var ctrl in Controls)
-            {
-                var form = Context.Request.Form;
+            var postBackDataHandlers = Controls
+                .Where(c => c.GetType().GetInterfaces()
+                .Contains(typeof(IPostBackDataHandler))).ToList();
 
-                if (form.ContainsKey(ctrl.Name))
-                {
-                    switch (ctrl.GetType().Name)
-                    {
-                        case nameof(Button):
-                            _postBackSender = (Button)ctrl;
-                            break;
-                        case nameof(TextBox):
-                            ((TextBox)ctrl).Text = form[ctrl.Name].ToString();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+            postBackDataHandlers.ForEach(c => ((IPostBackDataHandler)c).LoadPostData(postBackData));
         }
 
-        private void ExecutePostBackCode()
+        private void RaisePostBackEvent(IPostBackEventHandler control)
         {
-            if (_postBackSender != null)
-            {
-                _postBackSender.GetType()
-                    .GetMethod("OnClick", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Invoke(_postBackSender, new object[] { EventArgs.Empty });
-            }
+            control.RaisePostBackEvent();
         }
     }
 }

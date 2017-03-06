@@ -2,10 +2,11 @@
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace My.AspNetCore.WebForms.Controls
 {
-    public class TextBox : Control
+    public class TextBox : Control, IPostBackDataHandler
     {
         public string Text { get; set; }
 
@@ -190,6 +191,17 @@ namespace My.AspNetCore.WebForms.Controls
             tagBuilder.WriteTo(writer, HtmlEncoder.Default);
 
             await Task.CompletedTask;
+        }
+
+        public void LoadPostData(IDictionary<string, string> postBackData)
+        {
+            var currentText = Text;
+            var postData = postBackData[Name];
+
+            if (!ReadOnly && currentText != postData)
+            {
+                Text = postData;
+            }
         }
     }
 }

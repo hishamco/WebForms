@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace My.AspNetCore.WebForms.Controls
 {
-    public class Button : Control
+    public class Button : Control, IPostBackEventHandler
     {
         public event EventHandler Click;
 
@@ -43,7 +43,6 @@ namespace My.AspNetCore.WebForms.Controls
         protected virtual void OnClick(EventArgs e)
         {
             Click?.Invoke(this, e);
-            OnCommand(new CommandEventArgs(CommandName, CommandArgument));
         }
 
         protected virtual void OnCommand(CommandEventArgs e)
@@ -178,6 +177,12 @@ namespace My.AspNetCore.WebForms.Controls
             tagBuilder.WriteTo(writer, HtmlEncoder.Default);
 
             await Task.CompletedTask;
+        }
+
+        public void RaisePostBackEvent()
+        {
+            OnClick(EventArgs.Empty);
+            OnCommand(new CommandEventArgs(CommandName, CommandArgument));
         }
     }
 }
