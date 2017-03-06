@@ -40,16 +40,15 @@ namespace My.AspNetCore.WebForms.Controls
 
         public string CommandArgument { get; set; }
 
-        protected virtual void OnClick()
+        protected virtual void OnClick(EventArgs e)
         {
-            Click?.Invoke(this, EventArgs.Empty);
-            OnCommand(CommandName, CommandArgument);
+            Click?.Invoke(this, e);
+            OnCommand(new CommandEventArgs(CommandName, CommandArgument));
         }
 
-        protected virtual void OnCommand(string commandName, string commandArgument)
+        protected virtual void OnCommand(CommandEventArgs e)
         {
-            Command?.Invoke(this,
-                new CommandEventArgs(commandName, commandArgument));
+            Command?.Invoke(this, e);
         }
 
         public async override Task RenderAsync(TextWriter writer)

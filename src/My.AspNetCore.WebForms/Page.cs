@@ -146,7 +146,7 @@ namespace My.AspNetCore.WebForms
             {
                 _postBackSender.GetType()
                     .GetMethod("OnClick", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Invoke(_postBackSender, null);
+                    .Invoke(_postBackSender, new object[] { EventArgs.Empty });
             }
         }
     }
