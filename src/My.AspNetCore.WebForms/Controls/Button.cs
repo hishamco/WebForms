@@ -165,12 +165,12 @@ namespace My.AspNetCore.WebForms.Controls
                 }
             }
 
-            if (string.IsNullOrEmpty(CommandName))
+            if (!string.IsNullOrEmpty(CommandName))
             {
                 tagBuilder.Attributes.Add("data-commandName", CommandName);
             }
 
-            if (string.IsNullOrEmpty(CommandArgument))
+            if (!string.IsNullOrEmpty(CommandArgument))
             {
                 tagBuilder.Attributes.Add("data-commandArgument", CommandArgument);
             }
