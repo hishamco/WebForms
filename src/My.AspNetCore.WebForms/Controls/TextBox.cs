@@ -1,4 +1,5 @@
 ﻿using My.AspNetCore.WebForms.Rendering;
+using System;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace My.AspNetCore.WebForms.Controls
 {
     public class TextBox : Control, IPostBackDataHandler
     {
+        public event EventHandler TextChanged;
+
         public string Text { get; set; }
 
         public int BorderWidth { get; set; }
@@ -39,6 +42,11 @@ namespace My.AspNetCore.WebForms.Controls
         public int Rows { get; set; }
 
         public bool ReadOnly { get; set; }
+
+        protected virtual void OnTextChanged(EventArgs e)
+        {
+            TextChanged?.Invoke(this, e);
+        }
 
         public async override Task RenderAsync(TextWriter writer)
         {
@@ -201,6 +209,7 @@ namespace My.AspNetCore.WebForms.Controls
             if (!ReadOnly && currentText != postData)
             {
                 Text = postData;
+                OnTextChanged(EventArgs.Empty);
             }
         }
     }
