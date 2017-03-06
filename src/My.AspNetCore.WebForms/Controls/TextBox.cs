@@ -46,6 +46,8 @@ namespace My.AspNetCore.WebForms.Controls
 
         public bool ReadOnly { get; set; }
 
+        public bool AutoPostBack { get; set; }
+
         protected virtual void OnTextChanged(EventArgs e)
         {
             TextChanged?.Invoke(this, e);
@@ -197,6 +199,11 @@ namespace My.AspNetCore.WebForms.Controls
             if (ReadOnly)
             {
                 tagBuilder.Attributes.Add("readonly", "readonly");
+            }
+
+            if (AutoPostBack)
+            {
+                tagBuilder.Attributes.Add("onchange", "this.form.submit()");
             }
 
             tagBuilder.WriteTo(writer, HtmlEncoder.Default);

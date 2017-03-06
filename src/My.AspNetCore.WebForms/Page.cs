@@ -14,7 +14,6 @@ namespace My.AspNetCore.WebForms
 {
     public abstract class Page
     {
-        private Button _postBackSender;
         private string _content;
         private HttpContext _context;
 
@@ -56,11 +55,16 @@ namespace My.AspNetCore.WebForms
                 var postBackEventHandlers = Controls
                     .Where(c => c.GetType().GetInterfaces()
                     .Contains(typeof(IPostBackEventHandler))).ToList();
+                // HACK: Allow postBackEventHandler to be nullable to let AutoPostBack property work as well
                 var postBackEventHandler = (IPostBackEventHandler)postBackEventHandlers
-                    .Single(c => postBackData.ContainsKey(c.Name));
+                    .SingleOrDefault(c => postBackData.ContainsKey(c.Name));
 
                 RaisePostBackDataEvent(postBackData);
-                RaisePostBackEvent(postBackEventHandler);
+
+                if (postBackEventHandler != null)
+                {
+                    RaisePostBackEvent(postBackEventHandler);
+                }
             }
 
             await RenderAsync();
