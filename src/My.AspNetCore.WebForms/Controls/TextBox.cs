@@ -9,6 +9,9 @@ namespace My.AspNetCore.WebForms.Controls
 {
     public class TextBox : Control, IPostBackDataHandler
     {
+        private const int DefaultMutliLineRows = 2;
+        private const int DefaultMutliLineColumns = 20;
+
         public event EventHandler TextChanged;
 
         public string Text { get; set; }
@@ -37,9 +40,9 @@ namespace My.AspNetCore.WebForms.Controls
 
         public TextBoxMode TextMode { get; set; } = TextBoxMode.SingleLine;
 
-        public int Columns { get; set; }
+        public int Columns { get; set; } = DefaultMutliLineColumns;
 
-        public int Rows { get; set; }
+        public int Rows { get; set; } = DefaultMutliLineRows;
 
         public bool ReadOnly { get; set; }
 
