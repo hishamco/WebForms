@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using My.AspNetCore.WebForms.Controls;
 using My.AspNetCore.WebForms.Templating;
 using System;
@@ -36,7 +37,9 @@ namespace My.AspNetCore.WebForms
         {
             const string htmlExtension = ".htm";
             var pageName = GetType().Name + htmlExtension;
-            var path = Path.Combine("Pages", pageName);
+            var pagesLocation = ((IOptions<WebFormsOptions>)Context.RequestServices
+                .GetService(typeof(IOptions<WebFormsOptions>))).Value.PagesLocation;
+            var path = Path.Combine(pagesLocation, pageName);
             var fileInfo = ((IHostingEnvironment)Context.RequestServices
                 .GetService(typeof(IHostingEnvironment))).ContentRootFileProvider
                 .GetFileInfo(path);

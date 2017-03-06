@@ -9,6 +9,7 @@ namespace WebFormsSample
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddWebForms(options => options.PagesLocation = "WebForms");
             services.AddWebForms()
                 .WithSimpleTemplate();
         }
