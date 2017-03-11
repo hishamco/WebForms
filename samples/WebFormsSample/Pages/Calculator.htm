@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>ASP.NET Core Web Forms</title>
+    <title>@Model.ApplicationName</title>
 </head>
 <body>
-    <h1>{{title}}</h1>
+    <h1>@Model.Title</h1>
     <form method="post">
         <asp:TextBox Name="txtNumber1"></asp:TextBox>
         <asp:TextBox Name="txtNumber2"></asp:TextBox><br/><br/>

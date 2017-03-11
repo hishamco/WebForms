@@ -12,7 +12,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.0" />
+    <PackageReference Include="RazorLight" Version="1.0.0-rc1" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\My.AspNetCore.WebForms\My.AspNetCore.WebForms.csproj" />
   </ItemGroup>
