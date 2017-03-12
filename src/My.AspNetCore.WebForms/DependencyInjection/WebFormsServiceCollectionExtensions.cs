@@ -1,5 +1,4 @@
-﻿using My.AspNetCore.WebForms;
-using My.AspNetCore.WebForms.Infrastructure;
+﻿using My.AspNetCore.WebForms.Infrastructure;
 using My.AspNetCore.WebForms.Templating;
 using System;
 

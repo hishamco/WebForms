@@ -10,6 +10,8 @@ namespace My.AspNetCore.WebForms
         private readonly IPageFactory _pageFactory;
         private readonly RequestDelegate _next;
 
+        private static readonly char[] _separator = new char[] { '/' };
+
         public WebFormsMiddleware(IPageFactory pageFactory, RequestDelegate next)
         {
             _pageFactory = pageFactory ?? throw new ArgumentNullException(nameof(pageFactory));
@@ -25,10 +27,9 @@ namespace My.AspNetCore.WebForms
                 return;
             }
 
-            var path = context.Request.Path.Value
-                .TrimStart(new char[] { '/' });
+            var path = context.Request.Path.Value.TrimStart(_separator);
 
-            if (path == "")
+            if (path == string.Empty)
             {
                 path = "Index";
             }

@@ -1,4 +1,4 @@
-﻿namespace My.AspNetCore.WebForms
+﻿namespace Microsoft.Extensions.DependencyInjection
 {
     public class WebFormsOptions
     {

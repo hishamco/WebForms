@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using My.AspNetCore.WebForms.Controls;
 using My.AspNetCore.WebForms.Templating;
@@ -18,6 +19,8 @@ namespace My.AspNetCore.WebForms
         private string _content;
         private HttpContext _context;
 
+        public static readonly string Extension = ".htm";
+
         public event EventHandler Load;
 
         protected internal HttpContext Context
@@ -35,8 +38,7 @@ namespace My.AspNetCore.WebForms
 
         public async Task ExecuteAsync()
         {
-            const string htmlExtension = ".htm";
-            var pageName = GetType().Name + htmlExtension;
+            var pageName = GetType().Name + Extension;
             var pagesLocation = ((IOptions<WebFormsOptions>)Context.RequestServices
                 .GetService(typeof(IOptions<WebFormsOptions>))).Value.PagesLocation;
             var path = Path.Combine(pagesLocation, pageName);
