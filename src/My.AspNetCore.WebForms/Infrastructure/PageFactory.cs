@@ -19,8 +19,9 @@ namespace My.AspNetCore.WebForms.Infrastructure
         public Page CreatePage(string type)
         {
             var assembly = GetHostedApplicationAssembly();
-            var pageFullyQualifiedName = string.Join(".",
-                assembly.GetName().Name, _webFormsOptions.PagesLocation, type);
+            var pageFullyQualifiedName = (_webFormsOptions.PagesLocation == string.Empty ?
+                $"{AppName}.{type}" :
+                $"{AppName}.{_webFormsOptions.PagesLocation}.{type}");
             var pageType = assembly.GetType(pageFullyQualifiedName);
 
             if (pageType == null)
