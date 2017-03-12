@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Options;
-using Moq;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 using My.AspNetCore.WebForms.Infrastructure;
+using Moq;
 using Xunit;
 
 namespace My.AspNetCore.WebForms.Tests
@@ -13,7 +15,10 @@ namespace My.AspNetCore.WebForms.Tests
             // Arrange
             var webFormsOptions = new Mock<IOptions<WebFormsOptions>>();
             webFormsOptions.Setup(o => o.Value).Returns(new WebFormsOptions());
-            var pageFactory = new PageFactory(webFormsOptions.Object);
+            var hostingEnv = new Mock<IHostingEnvironment>();
+            hostingEnv.Setup(h => h.ApplicationName)
+                .Returns(typeof(PageFactory).GetTypeInfo().Assembly.GetName().Name);
+            var pageFactory = new PageFactory(webFormsOptions.Object, hostingEnv.Object);
 
             // Act
             var page = pageFactory.CreatePage("InvalidPage");
