@@ -30,7 +30,7 @@ namespace My.AspNetCore.WebForms
             internal set => _context = value ?? throw new ArgumentException(nameof(Context));
         }
 
-        public IList<Control> Controls { get; } = new List<Control>();
+        public ControlCollection Controls { get; } = new ControlCollection();
 
         public string Title { get; set; }
 
