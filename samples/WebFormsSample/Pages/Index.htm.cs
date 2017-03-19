@@ -10,11 +10,11 @@ namespace WebFormsSample.Pages
             InitializeComponent();
         }
 
-        private void Page_Load(object sender, EventArgs e)
+        private void Page_Load(object sender, PageLoadEventArgs e)
         {
             litGreeting.Text = $"Hello, World! The time on the server is {DateTime.Now}";
 
-            if (IsPostBack)
+            if (e.IsPostBack)
             {
                 litPostBack.Text = "IsPostBack: True";
             }

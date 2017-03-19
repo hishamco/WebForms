@@ -21,7 +21,7 @@ namespace My.AspNetCore.WebForms
 
         public static readonly string Extension = ".htm";
 
-        public event EventHandler Load;
+        public event PageLoadEventHandler Load;
 
         protected internal HttpContext Context
         {
@@ -31,8 +31,6 @@ namespace My.AspNetCore.WebForms
         }
 
         public IList<Control> Controls { get; } = new List<Control>();
-
-        public bool IsPostBack => Context.Request.Method == "POST";
 
         public string Title { get; set; }
 
@@ -52,9 +50,11 @@ namespace My.AspNetCore.WebForms
                 _content = await reader.ReadToEndAsync();
             }
 
-            OnLoad();
+            var args = new PageLoadEventArgs(Context);
 
-            if (IsPostBack)
+            OnLoad(args);
+
+            if (args.IsPostBack)
             {
                 var postBackData = Context.Request.Form.ToDictionary(i => i.Key, i=> i.Value.ToString());
                 var postBackEventHandlers = Controls
@@ -101,9 +101,9 @@ namespace My.AspNetCore.WebForms
             await Context.Response.WriteAsync(_content);
         }
 
-        protected virtual void OnLoad()
+        protected virtual void OnLoad(PageLoadEventArgs e)
         {
-            Load?.Invoke(this, EventArgs.Empty);
+            Load?.Invoke(this, e);
         }
 
         private async Task RenderControlAsync(string content, TextWriter writer)
