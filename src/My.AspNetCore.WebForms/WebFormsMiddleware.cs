@@ -9,6 +9,7 @@ namespace My.AspNetCore.WebForms
     {
         private readonly IPageFactory _pageFactory;
         private readonly IPageContextFactory _pageContextFactory;
+        private readonly IPageLoader _pageLoader;
         private readonly RequestDelegate _next;
 
         private static readonly char[] _separator = new char[] { '/' };
@@ -16,9 +17,11 @@ namespace My.AspNetCore.WebForms
         public WebFormsMiddleware(
             IPageFactory pageFactory,
             IPageContextFactory pageContextFactory,
+            IPageLoader pageLoader,
             RequestDelegate next)
         {
             _pageFactory = pageFactory ?? throw new ArgumentNullException(nameof(pageFactory));
+            _pageLoader = pageLoader ?? throw new ArgumentNullException(nameof(pageLoader));
             _pageContextFactory = pageContextFactory ?? throw new ArgumentNullException(nameof(pageContextFactory));
             _next = next ?? throw new ArgumentNullException(nameof(next));
         }
@@ -32,22 +35,29 @@ namespace My.AspNetCore.WebForms
                 return;
             }
 
-            var path = context.Request.Path.Value.TrimStart(_separator);
-
-            if (path == string.Empty)
+            var relativePath = context.Request.Path.Value.TrimStart(_separator);
+            if (relativePath == string.Empty)
             {
-                path = "Index";
+                relativePath = "Index";
             }
 
-            var page = _pageFactory.CreatePage(path);
-
-            if (page == null)
+            var pageContext = _pageContextFactory.Create(context);
+            var pageType = _pageLoader.Load(relativePath);
+            if (pageType == null)
             {
                 context.Response.StatusCode = 404;
                 return;
             }
 
-            page.Context = _pageContextFactory.Create(context);
+            var pageDescriptor = new PageDescriptor
+            {
+                RelativePath = relativePath,
+                PageType = pageType
+            };
+
+            pageContext.PageDescriptor = pageDescriptor;
+
+            var page = _pageFactory.CreatePage(pageContext);
             await page.ExecuteAsync();
         }
     }

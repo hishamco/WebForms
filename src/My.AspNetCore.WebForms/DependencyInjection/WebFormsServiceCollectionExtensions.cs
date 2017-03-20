@@ -41,6 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IPageFactory, DefaultPageFactory>();
             services.AddSingleton<IPageContextFactory, DefaultPageContextFactory>();
+            services.AddSingleton<IPageLoader, DefaultPageLoader>();
             services.AddSingleton<ITemplate, NullTemplate>();
         }
 

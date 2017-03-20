@@ -2,6 +2,6 @@
 {
     public interface IPageFactory
     {
-        Page CreatePage(string type);
+        Page CreatePage(PageContext context);
     }
 }

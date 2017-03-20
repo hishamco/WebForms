@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System.Reflection;
-using My.AspNetCore.WebForms.Infrastructure;
-using Moq;
+﻿using My.AspNetCore.WebForms.Infrastructure;
 using Xunit;
 
 namespace My.AspNetCore.WebForms.Tests
@@ -11,21 +6,44 @@ namespace My.AspNetCore.WebForms.Tests
     public class DefaultPageFactoryTest
     {
         [Fact]
-        public void CreateInvalidPageReturnNull()
+        public void CreatePageWithEmptyContextReturnNull()
         {
             // Arrange
-            var webFormsOptions = new Mock<IOptions<WebFormsOptions>>();
-            webFormsOptions.Setup(o => o.Value).Returns(new WebFormsOptions());
-            var hostingEnv = new Mock<IHostingEnvironment>();
-            hostingEnv.Setup(h => h.ApplicationName)
-                .Returns(typeof(DefaultPageFactory).GetTypeInfo().Assembly.GetName().Name);
-            var pageFactory = new DefaultPageFactory(webFormsOptions.Object, hostingEnv.Object);
+            var pageFactory = new DefaultPageFactory();
+            var pageContext = new PageContext();
 
             // Act
-            var page = pageFactory.CreatePage("InvalidPage");
+            var page = pageFactory.CreatePage(pageContext);
 
             // Assert
-            Assert.Equal(null, page);
+            Assert.Null(page);
+        }
+
+        [Fact]
+        public void CreatePage()
+        {
+            // Arrange
+            var pageFactory = new DefaultPageFactory();
+            var pageContext = new PageContext
+            {
+                Page = new TestPage(),
+                PageDescriptor = new PageDescriptor
+                {
+                    PageType = typeof(TestPage),
+                    RelativePath = "Test"
+                }
+            };
+
+            // Act
+            var page = pageFactory.CreatePage(pageContext);
+
+            // Assert
+            Assert.NotNull(page);
+        }
+
+        private class TestPage : Page
+        {
+
         }
     }
 }

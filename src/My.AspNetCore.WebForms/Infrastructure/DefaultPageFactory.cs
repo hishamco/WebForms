@@ -1,41 +1,26 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System;
-using System.Reflection;
+﻿using System;
 
 namespace My.AspNetCore.WebForms.Infrastructure
 {
     public class DefaultPageFactory : IPageFactory
     {
-        private readonly WebFormsOptions _webFormsOptions;
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-        public DefaultPageFactory(IOptions<WebFormsOptions> webFormsOptions, IHostingEnvironment hostingEnvironment)
+        public Page CreatePage(PageContext context)
         {
-            _webFormsOptions = webFormsOptions.Value;
-            _hostingEnvironment = hostingEnvironment;
-        }
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
 
-        public Page CreatePage(string type)
-        {
-            var assembly = GetHostedApplicationAssembly();
-            var pageFullyQualifiedName = (_webFormsOptions.PagesLocation == string.Empty ?
-                $"{AppName}.{type}" :
-                $"{AppName}.{_webFormsOptions.PagesLocation}.{type}");
-            var pageType = assembly.GetType(pageFullyQualifiedName);
-
+            var pageType = context.PageDescriptor?.PageType ?? null;
             if (pageType == null)
             {
                 return null;
             }
 
-            return (Page)Activator.CreateInstance(pageType);
+            var page = (Page)Activator.CreateInstance(pageType);
+            page.Context = context;
+
+            return page;
         }
-
-        private Assembly GetHostedApplicationAssembly() =>
-            Assembly.Load(new AssemblyName(AppName));
-
-        private string AppName => _hostingEnvironment.ApplicationName;
     }
 }
