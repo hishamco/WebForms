@@ -24,7 +24,7 @@ namespace My.AspNetCore.WebForms
 
         public event PageLoadEventHandler Load;
 
-        protected internal PageContext Context
+        public PageContext Context
         {
             get => _context;
 
