@@ -17,17 +17,21 @@ namespace My.AspNetCore.WebForms
     public abstract class Page
     {
         private string _content;
-        private HttpContext _context;
+        private PageContext _context;
 
         public static readonly string Extension = ".htm";
 
         public event PageLoadEventHandler Load;
 
-        protected internal HttpContext Context
+        protected internal PageContext Context
         {
             get => _context;
 
-            internal set => _context = value ?? throw new ArgumentException(nameof(Context));
+            internal set
+            {
+                _context = value ?? throw new ArgumentException(nameof(value));
+                _context.Page = this;
+            }
         }
 
         public ControlCollection Controls { get; } = new ControlCollection();
@@ -37,10 +41,10 @@ namespace My.AspNetCore.WebForms
         public async Task ExecuteAsync()
         {
             var pageName = GetType().Name + Extension;
-            var pagesLocation = ((IOptions<WebFormsOptions>)Context.RequestServices
+            var pagesLocation = ((IOptions<WebFormsOptions>)Context.HttpContext.RequestServices
                 .GetService(typeof(IOptions<WebFormsOptions>))).Value.PagesLocation;
             var path = Path.Combine(pagesLocation, pageName);
-            var fileInfo = ((IHostingEnvironment)Context.RequestServices
+            var fileInfo = ((IHostingEnvironment)Context.HttpContext.RequestServices
                 .GetService(typeof(IHostingEnvironment))).ContentRootFileProvider
                 .GetFileInfo(path);
 
@@ -56,7 +60,7 @@ namespace My.AspNetCore.WebForms
 
             if (args.IsPostBack)
             {
-                var postBackData = Context.Request.Form.ToDictionary(i => i.Key, i=> i.Value.ToString());
+                var postBackData = Context.HttpContext.Request.Form.ToDictionary(i => i.Key, i=> i.Value.ToString());
                 var postBackEventHandlers = Controls
                     .Where(c => c.GetType().GetInterfaces()
                     .Contains(typeof(IPostBackEventHandler))).ToList();
@@ -91,14 +95,14 @@ namespace My.AspNetCore.WebForms
                 }
             }
 
-            var template = (ITemplate) Context.RequestServices
+            var template = (ITemplate) Context.HttpContext.RequestServices
                 .GetService(typeof(ITemplate));
             _content = await template
                 .ParseAsync(writer.GetStringBuilder().ToString(), this);
 
-            Context.Response.StatusCode = 200;
-            Context.Response.ContentType = "text/html; charset=utf-8";
-            await Context.Response.WriteAsync(_content);
+            Context.HttpContext.Response.StatusCode = 200;
+            Context.HttpContext.Response.ContentType = "text/html; charset=utf-8";
+            await Context.HttpContext.Response.WriteAsync(_content);
         }
 
         protected virtual void OnLoad(PageLoadEventArgs e)

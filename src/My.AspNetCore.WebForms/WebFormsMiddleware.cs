@@ -8,13 +8,18 @@ namespace My.AspNetCore.WebForms
     public class WebFormsMiddleware
     {
         private readonly IPageFactory _pageFactory;
+        private readonly IPageContextFactory _pageContextFactory;
         private readonly RequestDelegate _next;
 
         private static readonly char[] _separator = new char[] { '/' };
 
-        public WebFormsMiddleware(IPageFactory pageFactory, RequestDelegate next)
+        public WebFormsMiddleware(
+            IPageFactory pageFactory,
+            IPageContextFactory pageContextFactory,
+            RequestDelegate next)
         {
             _pageFactory = pageFactory ?? throw new ArgumentNullException(nameof(pageFactory));
+            _pageContextFactory = pageContextFactory ?? throw new ArgumentNullException(nameof(pageContextFactory));
             _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
@@ -42,7 +47,7 @@ namespace My.AspNetCore.WebForms
                 return;
             }
 
-            page.Context = context;
+            page.Context = _pageContextFactory.Create(context);
             await page.ExecuteAsync();
         }
     }

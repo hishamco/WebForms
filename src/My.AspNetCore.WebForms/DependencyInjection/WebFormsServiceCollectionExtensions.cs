@@ -40,6 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
         private static void AddWebFormsServices(this IServiceCollection services)
         {
             services.AddSingleton<IPageFactory, DefaultPageFactory>();
+            services.AddSingleton<IPageContextFactory, DefaultPageContextFactory>();
             services.AddSingleton<ITemplate, NullTemplate>();
         }
 

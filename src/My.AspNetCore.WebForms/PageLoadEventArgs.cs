@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 
 namespace My.AspNetCore.WebForms
 {
     public class PageLoadEventArgs : EventArgs
     {
-        private readonly HttpContext _context;
+        private readonly PageContext _context;
 
-        internal PageLoadEventArgs(HttpContext context)
+        internal PageLoadEventArgs(PageContext context)
         {
             _context = context;
         }
 
-        public bool IsPostBack => _context.Request.Method == "POST";
+        public bool IsPostBack => _context.HttpContext.Request.Method == "POST";
     }
 }
