@@ -8,7 +8,7 @@ using Xunit;
 
 namespace My.AspNetCore.WebForms.Tests
 {
-    public class PageFactoryTest
+    public class DefaultPageFactoryTest
     {
         [Fact]
         public void CreateInvalidPageReturnNull()
@@ -18,8 +18,8 @@ namespace My.AspNetCore.WebForms.Tests
             webFormsOptions.Setup(o => o.Value).Returns(new WebFormsOptions());
             var hostingEnv = new Mock<IHostingEnvironment>();
             hostingEnv.Setup(h => h.ApplicationName)
-                .Returns(typeof(PageFactory).GetTypeInfo().Assembly.GetName().Name);
-            var pageFactory = new PageFactory(webFormsOptions.Object, hostingEnv.Object);
+                .Returns(typeof(DefaultPageFactory).GetTypeInfo().Assembly.GetName().Name);
+            var pageFactory = new DefaultPageFactory(webFormsOptions.Object, hostingEnv.Object);
 
             // Act
             var page = pageFactory.CreatePage("InvalidPage");

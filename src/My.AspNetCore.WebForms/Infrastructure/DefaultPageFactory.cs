@@ -6,12 +6,12 @@ using System.Reflection;
 
 namespace My.AspNetCore.WebForms.Infrastructure
 {
-    public class PageFactory : IPageFactory
+    public class DefaultPageFactory : IPageFactory
     {
         private readonly WebFormsOptions _webFormsOptions;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public PageFactory(IOptions<WebFormsOptions> webFormsOptions, IHostingEnvironment hostingEnvironment)
+        public DefaultPageFactory(IOptions<WebFormsOptions> webFormsOptions, IHostingEnvironment hostingEnvironment)
         {
             _webFormsOptions = webFormsOptions.Value;
             _hostingEnvironment = hostingEnvironment;
