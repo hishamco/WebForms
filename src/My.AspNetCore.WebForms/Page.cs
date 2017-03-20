@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using My.AspNetCore.WebForms.Controls;
 using My.AspNetCore.WebForms.Templating;
@@ -38,8 +39,14 @@ namespace My.AspNetCore.WebForms
 
         public string Title { get; set; }
 
+        public ILogger Logger { get; private set; }
+
         public async Task ExecuteAsync()
         {
+            var loggerFactory = ((ILoggerFactory)Context.HttpContext
+                .RequestServices.GetService(typeof(ILoggerFactory)));
+            Logger = loggerFactory.CreateLogger(GetType().FullName);
+
             var pageName = GetType().Name + Extension;
             var pagesLocation = ((IOptions<WebFormsOptions>)Context.HttpContext.RequestServices
                 .GetService(typeof(IOptions<WebFormsOptions>))).Value.PagesLocation;

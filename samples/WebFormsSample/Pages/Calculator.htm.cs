@@ -1,4 +1,5 @@
-﻿using My.AspNetCore.WebForms;
+﻿using Microsoft.Extensions.Logging;
+using My.AspNetCore.WebForms;
 using My.AspNetCore.WebForms.Controls;
 using System;
 
@@ -13,6 +14,8 @@ namespace WebFormsSample.Pages
 
         private void Button_Command(object sender, CommandEventArgs e)
         {
+            Logger.LogInformation($"The button named '{((Button)sender).Name}' is clicked.");
+
             var number1 = Convert.ToInt32(txtNumber1.Text);
             var number2 = Convert.ToInt32(txtNumber2.Text);
             double result = 0;
@@ -31,6 +34,7 @@ namespace WebFormsSample.Pages
                 case "Div":
                     if (number2 == 0)
                     {
+                        Logger.LogWarning($"The divide by zero isn't allowed.");
                         litResult.Text = $"The result is Unknown";
                         return;
                     }
