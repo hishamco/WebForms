@@ -1,5 +1,10 @@
-﻿using My.AspNetCore.WebForms.Infrastructure;
+﻿using Microsoft.AspNetCore.Http;
+using My.AspNetCore.WebForms.Infrastructure;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
+using My.AspNetCore.WebForms.Tests.Pages;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
 
 namespace My.AspNetCore.WebForms.Tests
 {
@@ -41,9 +46,37 @@ namespace My.AspNetCore.WebForms.Tests
             Assert.NotNull(page);
         }
 
-        private class TestPage : Page
+        [Fact]
+        public void CreatePageWithInjectedService()
         {
+            // Arrange
+            var pageFactory = new DefaultPageFactory();
+            var pageContext = new PageContext()
+            {
+                HttpContext = BuildHttpContext(),
+                PageDescriptor = new PageDescriptor
+                {
+                    PageType = typeof(ServicePage),
+                    RelativePath = "ServicePage"
+                }
+            };
 
+            // Act
+            var page = (ServicePage)pageFactory.CreatePage(pageContext);
+
+            // Assert
+            Assert.NotNull(page.HostingEnvironment);
+
+            HttpContext BuildHttpContext()
+            {
+                var context = new DefaultHttpContext();
+                var services = new ServiceCollection();
+                services.AddSingleton<IHostingEnvironment, HostingEnvironment>();
+                context.RequestServices = new DefaultServiceProviderFactory()
+                    .CreateServiceProvider(services);
+
+                return context;
+            }
         }
     }
 }
