@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using My.AspNetCore.WebForms.Controls;
+using My.AspNetCore.WebForms.Rendering;
 using My.AspNetCore.WebForms.Templating;
 using System;
 using System.Collections.Generic;
@@ -89,12 +90,13 @@ namespace My.AspNetCore.WebForms
         public async virtual Task RenderAsync()
         {
             var writer = new StringWriter(new StringBuilder());
+            var controlRendering = new ControlRendering();
 
             foreach (var line in _content.Split('\n'))
             {
                 if (line.Contains($"{Control.TagPrefix}"))
                 {
-                    await RenderControlAsync(line, writer);
+                    await controlRendering.RenderAsync(this, line, writer);
                 }
                 else
                 {
@@ -115,33 +117,6 @@ namespace My.AspNetCore.WebForms
         protected virtual void OnLoad(PageLoadEventArgs e)
         {
             Load?.Invoke(this, e);
-        }
-
-        private async Task RenderControlAsync(string content, TextWriter writer)
-        {
-            var beginIndex = content.IndexOf($"<{Control.TagPrefix}");
-            var endIndex = content.IndexOf('>',
-                content.IndexOf($"</{Control.TagPrefix}")) + 1;
-            var control = ParseControl(content
-                .Substring(beginIndex, endIndex - beginIndex));
-
-            // Render any content before the control
-            await writer.WriteAsync(content.Substring(0, beginIndex - 1));
-            // Render the actual control
-            await control.RenderAsync(writer);
-            // Render any content after the control
-            await writer.WriteAsync(content.Substring(endIndex));
-        }
-
-        // TODO: Parse the control from actual string
-        private Control ParseControl(string content)
-        {
-            // Now it's fine to look for the control by its name in the Controls property
-            var nameStartIndex = content.IndexOf("Name=") + 6;
-            var quoteLastIndex = content.IndexOf('"', nameStartIndex);
-            var name = content.Substring(nameStartIndex, quoteLastIndex - nameStartIndex);
-
-            return Controls.SingleOrDefault(c => c.Name == name);
         }
 
         private void RaisePostBackDataEvent(IDictionary<string, string> postBackData)
