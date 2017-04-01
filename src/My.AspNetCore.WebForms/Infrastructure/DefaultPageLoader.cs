@@ -22,9 +22,10 @@ namespace My.AspNetCore.WebForms.Infrastructure
         public Type Load(string relativePath)
         {
             var assembly = GetHostedApplicationAssembly();
+            var pageClassName = relativePath.Replace('/', '.');
             var pageFullyQualifiedName = (_webFormsOptions.PagesLocation == string.Empty ?
-                $"{AppName}.{relativePath}" :
-                $"{AppName}.{_webFormsOptions.PagesLocation}.{relativePath}");
+                $"{AppName}.{pageClassName}" :
+                $"{AppName}.{_webFormsOptions.PagesLocation}.{pageClassName}");
 
             return assembly.GetType(pageFullyQualifiedName, false, true);
         }

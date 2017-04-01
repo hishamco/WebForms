@@ -28,5 +28,23 @@ namespace My.AspNetCore.WebForms.Tests
             // Assert
             Assert.NotNull(page);
         }
+
+        [Fact]
+        public void NestedPageShouldBeLoaded()
+        {
+            // Arrange
+            var webFormsOptions = Options.Create(new WebFormsOptions());
+            var hostingEnvironment = new HostingEnvironment()
+            {
+                ApplicationName = "My.AspNetCore.WebForms.Tests"
+            };
+            var pageLoader = new DefaultPageLoader(webFormsOptions, hostingEnvironment);
+
+            // Act
+            var page = pageLoader.Load("Admin/LoginPage");
+
+            // Assert
+            Assert.NotNull(page);
+        }
     }
 }
