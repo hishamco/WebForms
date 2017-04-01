@@ -41,6 +41,11 @@ namespace My.AspNetCore.WebForms
                 relativePath = "Index";
             }
 
+            if (relativePath.EndsWith(Page.Extension))
+            {
+                relativePath = relativePath.Trim(Page.Extension.ToCharArray());
+            }
+
             var pageContext = _pageContextFactory.Create(context);
             var pageType = _pageLoader.Load(relativePath);
             if (pageType == null)

@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\Calculator.htm" />
+    <Content Include="wwwroot\Index.htm" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Pages\" />
-    <Folder Include="wwwroot" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +21,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.0" />
     <PackageReference Include="RazorLight" Version="1.0.0-rc1" />
   </ItemGroup>

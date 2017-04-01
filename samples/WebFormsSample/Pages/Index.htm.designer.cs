@@ -29,6 +29,7 @@
             // 
             this.btnPost.Name = "btnPost";
             this.btnPost.Text = "Post";
+            this.btnPost.CssClass = "btn btn-primary";
 
             this.Title = "Home";
             this.Load += Page_Load;
