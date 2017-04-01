@@ -26,7 +26,7 @@ namespace My.AspNetCore.WebForms.Infrastructure
                 $"{AppName}.{relativePath}" :
                 $"{AppName}.{_webFormsOptions.PagesLocation}.{relativePath}");
 
-            return assembly.GetType(pageFullyQualifiedName);
+            return assembly.GetType(pageFullyQualifiedName, false, true);
         }
 
         private Assembly GetHostedApplicationAssembly() =>
