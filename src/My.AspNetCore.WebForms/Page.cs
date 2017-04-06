@@ -21,7 +21,7 @@ namespace My.AspNetCore.WebForms
         private string _content;
         private PageContext _context;
 
-        public static readonly string Extension = ".htm";
+        public static readonly string Extension = ".aspx";
 
         public event PageLoadEventHandler Load;
 
