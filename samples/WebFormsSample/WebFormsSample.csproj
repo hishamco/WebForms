@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.0" />
+    <PackageReference Include="nustache.core" Version="1.0.0-alfa2" />
     <PackageReference Include="RazorLight" Version="1.0.0-rc1" />
   </ItemGroup>
 

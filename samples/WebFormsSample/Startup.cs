@@ -11,7 +11,7 @@ namespace WebFormsSample
         {
             //services.AddWebForms(options => options.PagesLocation = "WebForms");
             services.AddWebForms()
-                .WithRazorTemplate();
+                .WithMustacheTemplate();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

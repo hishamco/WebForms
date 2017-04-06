@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@Model.Title - @Model.ApplicationName</title>
+    <title>{{title}} - {{applicationName}}</title>
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" />
 </head>
 <body style="padding-top: 70px;">
@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">@Model.ApplicationName</a>
+                <a class="navbar-brand">{{applicationName}}</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="container body-content">
-        <h1>@Model.Title</h1>
+        <h1>{{title}}</h1>
         <form method="post" class="form-inline">
             <asp:TextBox Name="txtNumber1" CssClass="form-control"></asp:TextBox>
             <asp:TextBox Name="txtNumber2"  CssClass="form-control"></asp:TextBox><br /><br />
@@ -41,7 +41,7 @@
         </form>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - @Model.ApplicationName</p>
+            <p>&copy; 2017 - {{applicationName}}</p>
         </footer>
     </div>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>

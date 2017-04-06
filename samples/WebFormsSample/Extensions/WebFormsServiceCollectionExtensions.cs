@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class WebFormsServiceCollectionExtensions
     {
-        public static IServiceCollection WithSimpleTemplate(this IServiceCollection services)
+        public static IServiceCollection WithMustacheTemplate(this IServiceCollection services)
         {
             if (services == null)
             {
@@ -22,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             // Replace the ITemplate service with the new one
             services.Remove(templatingServiceDescriptor);
-            services.AddSingleton<ITemplate, SimpleTemplate>();
+            services.AddSingleton<ITemplate, MustacheTemplate>();
 
             return services;
         }
