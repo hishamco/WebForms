@@ -43,7 +43,8 @@ namespace My.AspNetCore.WebForms
 
             if (relativePath.EndsWith(Page.Extension))
             {
-                relativePath = relativePath.Trim(Page.Extension.ToCharArray());
+                var extensionIndex = relativePath.LastIndexOf(Page.Extension);
+                relativePath = relativePath.Remove(extensionIndex);
             }
 
             var pageContext = _pageContextFactory.Create(context);
