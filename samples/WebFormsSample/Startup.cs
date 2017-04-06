@@ -23,6 +23,8 @@ namespace WebFormsSample
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseWebForms();
         }
     }
