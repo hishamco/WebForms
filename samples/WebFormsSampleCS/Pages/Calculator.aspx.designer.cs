@@ -1,4 +1,4 @@
-﻿namespace WebFormsSample.Pages
+﻿namespace WebFormsSampleCS.Pages
 {
     public partial class Calculator
     {

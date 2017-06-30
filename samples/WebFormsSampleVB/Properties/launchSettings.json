@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebFormsSample": {
+    "WebFormsSampleVB": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

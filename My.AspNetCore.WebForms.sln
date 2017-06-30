@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26606.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CB41BD05-14C7-47CA-8FA7-4D87A328F66F}"
 EndProject
@@ -9,15 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{6979
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5B8D5564-99FE-4F81-8D53-2A8948C6B5B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My.AspNetCore.WebForms", "src\My.AspNetCore.WebForms\My.AspNetCore.WebForms.csproj", "{A9B75423-668A-4B32-BF11-C7160C784854}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "My.AspNetCore.WebForms", "src\My.AspNetCore.WebForms\My.AspNetCore.WebForms.csproj", "{A9B75423-668A-4B32-BF11-C7160C784854}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFormsSample", "samples\WebFormsSample\WebFormsSample.csproj", "{192073D6-4E1E-4C0F-AA67-F4CD481732B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebFormsSampleCS", "samples\WebFormsSampleCS\WebFormsSampleCS.csproj", "{192073D6-4E1E-4C0F-AA67-F4CD481732B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My.AspNetCore.WebForms.Tests", "test\My.AspNetCore.WebForms.Tests\My.AspNetCore.WebForms.Tests.csproj", "{3EDCA8A6-2FFD-4B31-AF71-B83FE82E690E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "My.AspNetCore.WebForms.Tests", "test\My.AspNetCore.WebForms.Tests\My.AspNetCore.WebForms.Tests.csproj", "{3EDCA8A6-2FFD-4B31-AF71-B83FE82E690E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My.AspNetCore.WebForms.FunctionalTests", "test\My.AspNetCore.WebForms.FunctionalTests\My.AspNetCore.WebForms.FunctionalTests.csproj", "{A0034255-6512-4527-8ADE-1AE300144A0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "My.AspNetCore.WebForms.FunctionalTests", "test\My.AspNetCore.WebForms.FunctionalTests\My.AspNetCore.WebForms.FunctionalTests.csproj", "{A0034255-6512-4527-8ADE-1AE300144A0C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebFormsWebsite", "test\WebFormsWebsite\WebFormsWebsite.csproj", "{AE28857B-279A-4859-BD8F-F8275466ECC1}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "WebFormsSampleVB", "samples\WebFormsSampleVB\WebFormsSampleVB.vbproj", "{822D7D38-7718-40D0-A719-BE6CF529FD7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,18 @@ Global
 		{AE28857B-279A-4859-BD8F-F8275466ECC1}.Release|x64.Build.0 = Release|Any CPU
 		{AE28857B-279A-4859-BD8F-F8275466ECC1}.Release|x86.ActiveCfg = Release|Any CPU
 		{AE28857B-279A-4859-BD8F-F8275466ECC1}.Release|x86.Build.0 = Release|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Debug|x64.Build.0 = Debug|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Release|x64.ActiveCfg = Release|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Release|x64.Build.0 = Release|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +113,6 @@ Global
 		{3EDCA8A6-2FFD-4B31-AF71-B83FE82E690E} = {5B8D5564-99FE-4F81-8D53-2A8948C6B5B2}
 		{A0034255-6512-4527-8ADE-1AE300144A0C} = {5B8D5564-99FE-4F81-8D53-2A8948C6B5B2}
 		{AE28857B-279A-4859-BD8F-F8275466ECC1} = {5B8D5564-99FE-4F81-8D53-2A8948C6B5B2}
+		{822D7D38-7718-40D0-A719-BE6CF529FD7E} = {69797458-8BA5-4950-B875-3D103AED0915}
 	EndGlobalSection
 EndGlobal

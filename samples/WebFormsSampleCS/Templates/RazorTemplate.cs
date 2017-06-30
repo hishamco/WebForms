@@ -3,7 +3,7 @@ using My.AspNetCore.WebForms.Templating;
 using RazorLight;
 using RazorLight.Extensions;
 
-namespace WebFormsSample.Templates
+namespace WebFormsSampleCS.Templates
 {
     public class RazorTemplate : Template
     {

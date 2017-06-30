@@ -1,6 +1,6 @@
 ﻿using My.AspNetCore.WebForms.Templating;
 using System;
-using WebFormsSample.Templates;
+using WebFormsSampleCS.Templates;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

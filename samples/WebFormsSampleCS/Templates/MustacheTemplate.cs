@@ -1,6 +1,6 @@
 ﻿using My.AspNetCore.WebForms.Templating;
 
-namespace WebFormsSample.Templates
+namespace WebFormsSampleCS.Templates
 {
     public class MustacheTemplate : Template
     {

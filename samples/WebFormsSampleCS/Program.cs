@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace WebFormsSample
+namespace WebFormsSampleCS
 {
     public class Program
     {
@@ -16,6 +16,7 @@ namespace WebFormsSample
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseEnvironment(EnvironmentName.Development)
                 .Build();
 
             host.Run();
