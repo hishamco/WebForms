@@ -1,4 +1,8 @@
 # WebForms
+AppVeyor: [![Build status](https://ci.appveyor.com/api/projects/status/94177a27nrnlhkkx/branch/master?svg=true)](https://ci.appveyor.com/project/hishamco/webforms/branch/master)
+
+Travis: [![Travis](https://travis-ci.org/hishamco/WebForms.svg?branch=master)](https://travis-ci.org/hishamco/WebForms)
+
 ASP.NET Core Web Forms is MVC alternative that use event-driven programming model for building dynamic web application
 
 ### What is this?
