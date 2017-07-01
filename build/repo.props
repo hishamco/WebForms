@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <ExcludeFromTest Include="$(RepositoryRoot)test\WebFormsWebsite\*.csproj" />
+  </ItemGroup>
+</Project>
