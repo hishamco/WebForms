@@ -1,4 +1,7 @@
-﻿namespace WebFormsSampleCS.Pages
+﻿using My.AspNetCore.WebForms.Controls;
+using System.Collections.Generic;
+
+namespace WebFormsSampleCS.Pages
 {
     public partial class Index
     {
@@ -7,6 +10,7 @@
         private global::My.AspNetCore.WebForms.Controls.RadioButton rbCS;
         private global::My.AspNetCore.WebForms.Controls.RadioButton rbFS;
         private global::My.AspNetCore.WebForms.Controls.RadioButton rbVB;
+        private global::My.AspNetCore.WebForms.Controls.DropDownList ddlGender;
         private global::My.AspNetCore.WebForms.Controls.Literal litGreeting;
         private global::My.AspNetCore.WebForms.Controls.Literal litPostBack;
         private global::My.AspNetCore.WebForms.Controls.Button btnPost;
@@ -19,12 +23,13 @@
             rbCS = new global::My.AspNetCore.WebForms.Controls.RadioButton();
             rbFS = new global::My.AspNetCore.WebForms.Controls.RadioButton();
             rbVB = new global::My.AspNetCore.WebForms.Controls.RadioButton();
+            ddlGender = new global::My.AspNetCore.WebForms.Controls.DropDownList();
             litGreeting = new global::My.AspNetCore.WebForms.Controls.Literal();
             litPostBack = new global::My.AspNetCore.WebForms.Controls.Literal();
             btnPost = new global::My.AspNetCore.WebForms.Controls.Button();
 
             // 
-            // cbWebForms;
+            // cbWebForms
             // 
             this.cbWebForms.Name = "cbWebForms";
             this.cbWebForms.Text = "WebForms";
@@ -62,6 +67,17 @@
             this.rbVB.AutoPostBack = true;
 
             // 
+            // ddlGender
+            // 
+            this.ddlGender.Name = "ddlGender";
+            this.ddlGender.AutoPostBack = true;
+            this.ddlGender.Items = new List<ListItem>
+            {
+                new ListItem("Male"),
+                new ListItem("Female")
+            };
+
+            // 
             // litGreeting
             // 
             this.litGreeting.Name = "litGreeting";
@@ -86,6 +102,7 @@
             this.Controls.Add(rbCS);
             this.Controls.Add(rbFS);
             this.Controls.Add(rbVB);
+            this.Controls.Add(ddlGender);
             this.Controls.Add(litGreeting);
             this.Controls.Add(litPostBack);
             this.Controls.Add(btnPost);

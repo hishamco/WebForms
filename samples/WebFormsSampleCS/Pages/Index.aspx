@@ -29,11 +29,15 @@
     <div class="container body-content">
         <h1>{{title}}</h1>
         <form method="post">
-            <asp:CheckBox Name="cbWebForms" Text="WebForms"></asp:CheckBox><br/>
-            <asp:CheckBox Name="cbMVC" Text="MVC"></asp:CheckBox><br/>
-            <asp:RadioButton Name="rbCS" GroupName="Languages" Text="C#"></asp:RadioButton><br/>
-            <asp:RadioButton Name="rbFS" GroupName="Languages" Text="F#"></asp:RadioButton><br/>
-            <asp:RadioButton Name="rbVB" GroupName="Languages" Text="VB"></asp:RadioButton><br/>
+            <asp:CheckBox Name="cbWebForms" Text="WebForms" AutoPostBack="True"></asp:CheckBox><br/>
+            <asp:CheckBox Name="cbMVC" Text="MVC" AutoPostBack="True"></asp:CheckBox><br/>
+            <asp:RadioButton Name="rbCS" GroupName="Languages" Text="C#" AutoPostBack="True"></asp:RadioButton><br/>
+            <asp:RadioButton Name="rbFS" GroupName="Languages" Text="F#" AutoPostBack="True"></asp:RadioButton><br/>
+            <asp:RadioButton Name="rbVB" GroupName="Languages" Text="VB" AutoPostBack="True"></asp:RadioButton><br/>
+            <asp:DropDownList Name="ddlGender" AutoPostBack="True">
+                <asp:ListItem Text="Male" />
+                <asp:ListItem Text="Female" />
+            </asp:DropDownList><br/>
             <asp:Literal Name="litGreeting"></asp:Literal><br />
             <asp:Button Name="btnPost" CssClass="btn btn-primary" Text="Post"></asp:Button>
             <span class="label label-info">

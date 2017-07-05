@@ -1,10 +1,13 @@
-﻿Namespace WebFormsSampleVB.Pages
+﻿Imports My.AspNetCore.WebForms.Controls
+
+Namespace WebFormsSampleVB.Pages
     Partial Public Class Index
         Private WithEvents cbWebForms As Global.My.AspNetCore.WebForms.Controls.CheckBox
         Private WithEvents cbMVC As Global.My.AspNetCore.WebForms.Controls.CheckBox
         Private WithEvents rbCS As Global.My.AspNetCore.WebForms.Controls.RadioButton
         Private WithEvents rbFS As Global.My.AspNetCore.WebForms.Controls.RadioButton
         Private WithEvents rbVB As Global.My.AspNetCore.WebForms.Controls.RadioButton
+        Private WithEvents ddlGender As Global.My.AspNetCore.WebForms.Controls.DropDownList
         Private WithEvents litGreeting As Global.My.AspNetCore.WebForms.Controls.Literal
         Private WithEvents litPostBack As Global.My.AspNetCore.WebForms.Controls.Literal
         Private WithEvents btnPost As Global.My.AspNetCore.WebForms.Controls.Button
@@ -16,6 +19,7 @@
             rbCS = New Global.My.AspNetCore.WebForms.Controls.RadioButton()
             rbFS = New Global.My.AspNetCore.WebForms.Controls.RadioButton()
             rbVB = New Global.My.AspNetCore.WebForms.Controls.RadioButton()
+            ddlGender = New Global.My.AspNetCore.WebForms.Controls.DropDownList()
             litGreeting = New Global.My.AspNetCore.WebForms.Controls.Literal()
             litPostBack = New Global.My.AspNetCore.WebForms.Controls.Literal()
             btnPost = New Global.My.AspNetCore.WebForms.Controls.Button()
@@ -59,6 +63,16 @@
             Me.rbVB.AutoPostBack = True
 
             ' 
+            ' ddlGender
+            ' 
+            Me.ddlGender.Name = "ddlGender"
+            Me.ddlGender.AutoPostBack = True
+            Me.ddlGender.Items = New List(Of ListItem) From {
+                New ListItem("Male"),
+                New ListItem("Female")
+            }
+
+            ' 
             ' litGreeting
             ' 
             Me.litGreeting.Name = "litGreeting"
@@ -82,6 +96,7 @@
             Me.Controls.Add(rbCS)
             Me.Controls.Add(rbFS)
             Me.Controls.Add(rbVB)
+            Me.Controls.Add(ddlGender)
             Me.Controls.Add(litGreeting)
             Me.Controls.Add(litPostBack)
             Me.Controls.Add(btnPost)
