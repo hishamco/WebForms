@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using HtmlAgilityPack;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,29 +89,13 @@ namespace My.AspNetCore.WebForms
 
         public async virtual Task RenderAsync()
         {
-            var writer = new StringWriter(new StringBuilder());
-            var controlRendering = new ControlRendering();
-
-            foreach (var line in _content.Split('\n'))
-            {
-                if (line.Contains($"{Control.TagPrefix}"))
-                {
-                    await controlRendering.RenderAsync(this, line, writer);
-                }
-                else
-                {
-                    await writer.WriteAsync(line);
-                }
-            }
-
-            var template = (ITemplate) Context.HttpContext.RequestServices
-                .GetService(typeof(ITemplate));
-            _content = await template
-                .ParseAsync(writer.GetStringBuilder().ToString(), this);
+            var doc = await RenderControlNodes();
+            var template = (ITemplate) Context.HttpContext.RequestServices.GetService(typeof(ITemplate));
+            var renderedContent = await template.ParseAsync(doc.DocumentNode.InnerHtml, this);
 
             Context.HttpContext.Response.StatusCode = 200;
             Context.HttpContext.Response.ContentType = "text/html; charset=utf-8";
-            await Context.HttpContext.Response.WriteAsync(_content);
+            await Context.HttpContext.Response.WriteAsync(renderedContent);
         }
 
         protected virtual void OnLoad(PageLoadEventArgs e)
@@ -131,6 +115,32 @@ namespace My.AspNetCore.WebForms
         private void RaisePostBackEvent(IPostBackEventHandler control)
         {
             control.RaisePostBackEvent();
+        }
+
+        // HACK: return HtmlDocument because you can't have async methods with ref or out parameters.
+        private async Task<HtmlDocument> RenderControlNodes()
+        {
+            var controlRendering = new ControlRendering();
+            var doc = new HtmlDocument();
+
+            doc.LoadHtml(_content);
+            var nodes = doc.DocumentNode.SelectNodes($"//*[starts-with(name(),'{Control.TagPrefix}')]");
+
+            if (nodes != null)
+            {
+                foreach (var node in nodes)
+                {
+                    using (var sw = new StringWriter(new StringBuilder()))
+                    {
+                        await controlRendering.RenderAsync(this, node.OuterHtml, sw);
+                        var newNode = new HtmlDocument();
+                        newNode.LoadHtml(sw.GetStringBuilder().ToString());
+                        node.ParentNode.ReplaceChild(newNode.DocumentNode, node);
+                    }
+                }
+            }
+
+            return doc;
         }
     }
 }
