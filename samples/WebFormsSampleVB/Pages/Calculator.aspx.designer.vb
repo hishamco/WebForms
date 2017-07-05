@@ -1,12 +1,12 @@
 ﻿Namespace WebFormsSampleVB.Pages
     Partial Public Class Calculator
-        Private txtNumber1 As Global.My.AspNetCore.WebForms.Controls.TextBox
-        Private txtNumber2 As Global.My.AspNetCore.WebForms.Controls.TextBox
-        Private btnAdd As Global.My.AspNetCore.WebForms.Controls.Button
-        Private btnSub As Global.My.AspNetCore.WebForms.Controls.Button
-        Private btnMul As Global.My.AspNetCore.WebForms.Controls.Button
-        Private btnDiv As Global.My.AspNetCore.WebForms.Controls.Button
-        Private litResult As Global.My.AspNetCore.WebForms.Controls.Literal
+        Private WithEvents txtNumber1 As Global.My.AspNetCore.WebForms.Controls.TextBox
+        Private WithEvents txtNumber2 As Global.My.AspNetCore.WebForms.Controls.TextBox
+        Private WithEvents btnAdd As Global.My.AspNetCore.WebForms.Controls.Button
+        Private WithEvents btnSub As Global.My.AspNetCore.WebForms.Controls.Button
+        Private WithEvents btnMul As Global.My.AspNetCore.WebForms.Controls.Button
+        Private WithEvents btnDiv As Global.My.AspNetCore.WebForms.Controls.Button
+        Private WithEvents litResult As Global.My.AspNetCore.WebForms.Controls.Literal
 
 #Region "Web Form Designer generated code"
         Private Sub InitializeComponent()
@@ -37,7 +37,6 @@
             Me.btnAdd.CssClass = "btn btn-primary"
             Me.btnAdd.Text = "Add"
             Me.btnAdd.CommandName = "Add"
-            AddHandler Me.btnAdd.Command, AddressOf Button_Command
 
             ' 
             ' btnSub
@@ -46,7 +45,6 @@
             Me.btnSub.CssClass = "btn btn-primary"
             Me.btnSub.Text = "Sub"
             Me.btnSub.CommandName = "Sub"
-            AddHandler Me.btnSub.Command, AddressOf Button_Command
 
             ' 
             ' btnMul
@@ -55,7 +53,6 @@
             Me.btnMul.CssClass = "btn btn-primary"
             Me.btnMul.Text = "Mul"
             Me.btnMul.CommandName = "Mul"
-            AddHandler Me.btnMul.Command, AddressOf Button_Command
 
             ' 
             ' btnDiv
@@ -64,7 +61,6 @@
             Me.btnDiv.CssClass = "btn btn-primary"
             Me.btnDiv.Text = "Div"
             Me.btnDiv.CommandName = "Div"
-            AddHandler Me.btnDiv.Command, AddressOf Button_Command
 
             ' 
             ' litResult

@@ -23,15 +23,9 @@ namespace My.AspNetCore.WebForms.Controls
 
         public void LoadPostData(IDictionary<string, string> postBackData)
         {
-            var currentChecked = Checked;
-            var postData = false;
+            var postData = postBackData.ContainsKey(Name);
 
-            if (postBackData.Count > 0)
-            {
-                postData = postBackData[Name] == "on";
-            }
-
-            if (Enabled && currentChecked != postData)
+            if (Enabled)
             {
                 Checked = postData;
                 OnCheckedChanged(EventArgs.Empty);
@@ -72,7 +66,7 @@ namespace My.AspNetCore.WebForms.Controls
 
             if (AutoPostBack)
             {
-                tagBuilder.Attributes.Add("onchange", "this.form.submit()");
+                tagBuilder.Attributes.Add("onclick", "this.form.submit()");
             }
 
             if (Checked)
@@ -95,7 +89,15 @@ namespace My.AspNetCore.WebForms.Controls
 
         private void RenderLabel(TextWriter writer)
         {
-            writer.WriteLine($"<label>{Text}</label>");           
+            var tagName = "label";
+            var tagBuilder = new TagBuilder(tagName)
+            {
+                TagRenderMode = TagRenderMode.Normal
+            };
+
+            tagBuilder.Attributes.Add("for", Name);
+            tagBuilder.InnerHtml.Append(Text);
+            tagBuilder.WriteTo(writer, HtmlEncoder.Default);
         }
     }
 }

@@ -15,10 +15,10 @@ namespace My.AspNetCore.WebForms.Controls
         {
             var currentChecked = Checked;
             var postData = false;
-
-            if (postBackData.ContainsKey(GroupName ?? Name))
+            var name = GroupName ?? Name;
+            if (postBackData.ContainsKey(name))
             {
-                postData = postBackData[GroupName ?? Name] == Name;
+                postData = postBackData[name] == Name;
             }
 
             if (Enabled && currentChecked != postData)
@@ -53,13 +53,12 @@ namespace My.AspNetCore.WebForms.Controls
             };
 
             tagBuilder.Attributes.Add("name", GroupName ?? Name);
-
             tagBuilder.Attributes.Add("type", "radio");
             tagBuilder.Attributes.Add("value", Name);
 
             if (AutoPostBack)
             {
-                tagBuilder.Attributes.Add("onchange", "this.form.submit()");
+                tagBuilder.Attributes.Add("onclick", "this.form.submit()");
             }
 
             if (Checked)
@@ -82,7 +81,15 @@ namespace My.AspNetCore.WebForms.Controls
 
         private void RenderLabel(TextWriter writer)
         {
-            writer.WriteLine($"<label>{Text}</label>");           
+            var tagName = "label";
+            var tagBuilder = new TagBuilder(tagName)
+            {
+                TagRenderMode = TagRenderMode.Normal
+            };
+
+            tagBuilder.Attributes.Add("for", Name);
+            tagBuilder.InnerHtml.Append(Text);
+            tagBuilder.WriteTo(writer, HtmlEncoder.Default);
         }
     }
 }

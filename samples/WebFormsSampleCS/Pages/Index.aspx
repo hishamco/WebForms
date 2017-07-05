@@ -29,6 +29,11 @@
     <div class="container body-content">
         <h1>{{title}}</h1>
         <form method="post">
+            <asp:CheckBox Name="cbWebForms" Text="WebForms"></asp:CheckBox><br/>
+            <asp:CheckBox Name="cbMVC" Text="MVC"></asp:CheckBox><br/>
+            <asp:RadioButton Name="rbCS" GroupName="Languages" Text="C#"></asp:RadioButton><br/>
+            <asp:RadioButton Name="rbFS" GroupName="Languages" Text="F#"></asp:RadioButton><br/>
+            <asp:RadioButton Name="rbVB" GroupName="Languages" Text="VB"></asp:RadioButton><br/>
             <asp:Literal Name="litGreeting"></asp:Literal><br />
             <asp:Button Name="btnPost" CssClass="btn btn-primary" Text="Post"></asp:Button>
             <span class="label label-info">
