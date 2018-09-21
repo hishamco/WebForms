@@ -2,7 +2,6 @@
 using My.AspNetCore.WebForms.Infrastructure;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
-using My.AspNetCore.WebForms.Tests.Pages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 

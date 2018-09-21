@@ -1,7 +1,7 @@
 ﻿using My.AspNetCore.WebForms.Controls;
 using System.Collections.Generic;
 
-namespace WebFormsSampleCS.Pages
+namespace WebFormsSampleCS
 {
     public partial class Index
     {

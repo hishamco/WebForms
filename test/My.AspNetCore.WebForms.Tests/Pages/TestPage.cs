@@ -1,4 +1,4 @@
-﻿namespace My.AspNetCore.WebForms.Tests.Pages
+﻿namespace My.AspNetCore.WebForms.Tests
 {
     public class TestPage : Page
     {

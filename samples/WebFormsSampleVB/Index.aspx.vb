@@ -2,8 +2,8 @@
 Imports My.AspNetCore.WebForms
 Imports System
 
-Namespace WebFormsSampleVB.Pages
-    partial public class Index
+Namespace WebFormsSampleVB
+    Partial Public Class Index
         Inherits Page
 
         Public Sub New()

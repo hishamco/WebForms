@@ -2,8 +2,8 @@
 Imports My.AspNetCore.WebForms
 Imports My.AspNetCore.WebForms.Controls
 
-Namespace WebFormsSampleVB.Pages
-    partial public class Calculator
+Namespace WebFormsSampleVB
+    Partial Public Class Calculator
         Inherits Page
 
         Public Sub New()

@@ -1,4 +1,4 @@
-﻿Namespace WebFormsSampleVB.Pages
+﻿Namespace WebFormsSampleVB
     Partial Public Class Calculator
         Private WithEvents txtNumber1 As Global.My.AspNetCore.WebForms.Controls.TextBox
         Private WithEvents txtNumber2 As Global.My.AspNetCore.WebForms.Controls.TextBox

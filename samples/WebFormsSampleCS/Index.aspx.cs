@@ -2,7 +2,7 @@
 using My.AspNetCore.WebForms;
 using System;
 
-namespace WebFormsSampleCS.Pages
+namespace WebFormsSampleCS
 {
     public partial class Index : Page
     {

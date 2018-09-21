@@ -1,4 +1,4 @@
-﻿namespace My.AspNetCore.WebForms.Tests.Pages.Admin
+﻿namespace My.AspNetCore.WebForms.Tests.Admin
 {
     public class LoginPage : Page
     {

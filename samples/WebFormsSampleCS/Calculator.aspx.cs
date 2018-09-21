@@ -3,7 +3,7 @@ using My.AspNetCore.WebForms;
 using My.AspNetCore.WebForms.Controls;
 using System;
 
-namespace WebFormsSampleCS.Pages
+namespace WebFormsSampleCS
 {
     public partial class Calculator : Page
     {

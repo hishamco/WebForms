@@ -1,6 +1,6 @@
 ﻿Imports My.AspNetCore.WebForms.Controls
 
-Namespace WebFormsSampleVB.Pages
+Namespace WebFormsSampleVB
     Partial Public Class Index
         Private WithEvents cbWebForms As Global.My.AspNetCore.WebForms.Controls.CheckBox
         Private WithEvents cbMVC As Global.My.AspNetCore.WebForms.Controls.CheckBox
