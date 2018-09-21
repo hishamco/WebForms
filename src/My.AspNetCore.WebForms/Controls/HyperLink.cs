@@ -8,10 +8,6 @@ namespace My.AspNetCore.WebForms.Controls
 {
     public class HyperLink : Control
     {
-        public event EventHandler Click;
-
-        public event CommandEventHandler Command;
-
         public int ImageHeight { get; set; }
 
         public string ImageUrl { get; set; }

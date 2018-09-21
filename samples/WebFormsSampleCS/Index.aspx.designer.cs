@@ -16,6 +16,7 @@ namespace WebFormsSampleCS
         private global::My.AspNetCore.WebForms.Controls.Button btnPost;
         private global::My.AspNetCore.WebForms.Controls.HyperLink hlText;
         private global::My.AspNetCore.WebForms.Controls.HyperLink hlImage;
+        private global::My.AspNetCore.WebForms.Controls.Image imgLogo;
 
         #region Web Form Designer generated code
         private void InitializeComponent()
@@ -31,6 +32,7 @@ namespace WebFormsSampleCS
             btnPost = new global::My.AspNetCore.WebForms.Controls.Button();
             hlText = new global::My.AspNetCore.WebForms.Controls.HyperLink();
             hlImage = new global::My.AspNetCore.WebForms.Controls.HyperLink();
+            imgLogo = new global::My.AspNetCore.WebForms.Controls.Image();
 
             // 
             // cbWebForms
@@ -115,6 +117,14 @@ namespace WebFormsSampleCS
             this.hlImage.ImageHeight = 50;
             this.hlImage.ImageWidth = 50;
 
+            // 
+            // imgLogo
+            // 
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.ImageUrl = "Images/github-logo.png";
+            this.imgLogo.AlternateText = "GitHub";
+            this.imgLogo.ImageAlign = ImageAlign.Left;
+
             this.Title = "Home";
             this.Load += Page_Load;
             this.Controls.Add(cbWebForms);
@@ -128,6 +138,7 @@ namespace WebFormsSampleCS
             this.Controls.Add(btnPost);
             this.Controls.Add(hlText);
             this.Controls.Add(hlImage);
+            this.Controls.Add(imgLogo);
         }
         #endregion
     }

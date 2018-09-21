@@ -13,6 +13,7 @@ Namespace WebFormsSampleVB
         Private WithEvents btnPost As Global.My.AspNetCore.WebForms.Controls.Button
         Private hlText As Global.My.AspNetCore.WebForms.Controls.HyperLink
         Private hlImage As Global.My.AspNetCore.WebForms.Controls.HyperLink
+        Private imgLogo As Global.My.AspNetCore.WebForms.Controls.Image
 
 #Region "Web Form Designer generated code"
         Private Sub InitializeComponent()
@@ -27,6 +28,7 @@ Namespace WebFormsSampleVB
             btnPost = New Global.My.AspNetCore.WebForms.Controls.Button()
             hlText = New Global.My.AspNetCore.WebForms.Controls.HyperLink()
             hlImage = New Global.My.AspNetCore.WebForms.Controls.HyperLink()
+            imgLogo = New Global.My.AspNetCore.WebForms.Controls.Image()
 
             ' 
             ' cbWebForms
@@ -110,6 +112,14 @@ Namespace WebFormsSampleVB
             Me.hlImage.ImageHeight = 50
             Me.hlImage.ImageWidth = 50
 
+            ' 
+            ' imgLogo
+            ' 
+            Me.imgLogo.Name = "imgLogo"
+            Me.imgLogo.ImageUrl = "Images/github-logo.png"
+            Me.imgLogo.AlternateText = "GitHub"
+            Me.imgLogo.ImageAlign = ImageAlign.Left
+
             Me.Title = "Home"
             Me.Controls.Add(cbWebForms)
             Me.Controls.Add(cbMVC)
@@ -122,6 +132,7 @@ Namespace WebFormsSampleVB
             Me.Controls.Add(btnPost)
             Me.Controls.Add(hlText)
             Me.Controls.Add(hlImage)
+            Me.Controls.Add(imgLogo)
         End Sub
 #End Region
     End Class
