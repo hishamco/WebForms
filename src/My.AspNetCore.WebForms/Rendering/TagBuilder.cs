@@ -71,6 +71,15 @@ namespace My.AspNetCore.WebForms.Rendering
             }
         }
 
+        public override string ToString()
+        {
+            using (var writer = new StringWriter())
+            {
+                WriteTo(writer, HtmlEncoder.Default);
+                return writer.ToString();
+            }
+        }
+
         private void AppendAttributes(TextWriter writer, HtmlEncoder encoder)
         {
             foreach (var attribute in Attributes)
