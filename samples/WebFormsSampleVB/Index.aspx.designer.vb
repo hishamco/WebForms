@@ -11,6 +11,8 @@ Namespace WebFormsSampleVB
         Private WithEvents litGreeting As Global.My.AspNetCore.WebForms.Controls.Literal
         Private WithEvents litPostBack As Global.My.AspNetCore.WebForms.Controls.Literal
         Private WithEvents btnPost As Global.My.AspNetCore.WebForms.Controls.Button
+        Private hlText As Global.My.AspNetCore.WebForms.Controls.HyperLink
+        Private hlImage As Global.My.AspNetCore.WebForms.Controls.HyperLink
 
 #Region "Web Form Designer generated code"
         Private Sub InitializeComponent()
@@ -23,6 +25,8 @@ Namespace WebFormsSampleVB
             litGreeting = New Global.My.AspNetCore.WebForms.Controls.Literal()
             litPostBack = New Global.My.AspNetCore.WebForms.Controls.Literal()
             btnPost = New Global.My.AspNetCore.WebForms.Controls.Button()
+            hlText = New Global.My.AspNetCore.WebForms.Controls.HyperLink()
+            hlImage = New Global.My.AspNetCore.WebForms.Controls.HyperLink()
 
             ' 
             ' cbWebForms
@@ -90,6 +94,22 @@ Namespace WebFormsSampleVB
             Me.btnPost.Text = "Post"
             Me.btnPost.CssClass = "btn btn-primary"
 
+            ' 
+            ' hlText
+            ' 
+            Me.hlText.Name = "hlText"
+            Me.hlText.NavigationUrl = "https://github.com/"
+            Me.hlText.Text = "GitHub"
+
+            ' 
+            ' hlImage
+            ' 
+            Me.hlImage.Name = "hlImage"
+            Me.hlImage.NavigationUrl = "https://github.com/"
+            Me.hlImage.ImageUrl = "Images/github-logo.png"
+            Me.hlImage.ImageHeight = 50
+            Me.hlImage.ImageWidth = 50
+
             Me.Title = "Home"
             Me.Controls.Add(cbWebForms)
             Me.Controls.Add(cbMVC)
@@ -100,6 +120,8 @@ Namespace WebFormsSampleVB
             Me.Controls.Add(litGreeting)
             Me.Controls.Add(litPostBack)
             Me.Controls.Add(btnPost)
+            Me.Controls.Add(hlText)
+            Me.Controls.Add(hlImage)
         End Sub
 #End Region
     End Class

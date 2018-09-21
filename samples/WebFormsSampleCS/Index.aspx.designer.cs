@@ -14,6 +14,8 @@ namespace WebFormsSampleCS
         private global::My.AspNetCore.WebForms.Controls.Literal litGreeting;
         private global::My.AspNetCore.WebForms.Controls.Literal litPostBack;
         private global::My.AspNetCore.WebForms.Controls.Button btnPost;
+        private global::My.AspNetCore.WebForms.Controls.HyperLink hlText;
+        private global::My.AspNetCore.WebForms.Controls.HyperLink hlImage;
 
         #region Web Form Designer generated code
         private void InitializeComponent()
@@ -27,6 +29,8 @@ namespace WebFormsSampleCS
             litGreeting = new global::My.AspNetCore.WebForms.Controls.Literal();
             litPostBack = new global::My.AspNetCore.WebForms.Controls.Literal();
             btnPost = new global::My.AspNetCore.WebForms.Controls.Button();
+            hlText = new global::My.AspNetCore.WebForms.Controls.HyperLink();
+            hlImage = new global::My.AspNetCore.WebForms.Controls.HyperLink();
 
             // 
             // cbWebForms
@@ -95,6 +99,22 @@ namespace WebFormsSampleCS
             this.btnPost.Text = "Post";
             this.btnPost.CssClass = "btn btn-primary";
 
+            // 
+            // hlText
+            // 
+            this.hlText.Name = "hlText";
+            this.hlText.NavigationUrl = "https://github.com/";
+            this.hlText.Text = "GitHub";
+
+            // 
+            // hlImage
+            // 
+            this.hlImage.Name = "hlImage";
+            this.hlImage.NavigationUrl = "https://github.com/";
+            this.hlImage.ImageUrl = "Images/github-logo.png";
+            this.hlImage.ImageHeight = 50;
+            this.hlImage.ImageWidth = 50;
+
             this.Title = "Home";
             this.Load += Page_Load;
             this.Controls.Add(cbWebForms);
@@ -106,6 +126,8 @@ namespace WebFormsSampleCS
             this.Controls.Add(litGreeting);
             this.Controls.Add(litPostBack);
             this.Controls.Add(btnPost);
+            this.Controls.Add(hlText);
+            this.Controls.Add(hlImage);
         }
         #endregion
     }

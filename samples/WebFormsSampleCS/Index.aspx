@@ -38,6 +38,8 @@
                 <asp:ListItem Text="Male" />
                 <asp:ListItem Text="Female" />
             </asp:DropDownList><br/>
+            <asp:HyperLink Name="hlText" NavigationUrl="https://github.com/" Text="GitHub"></asp:HyperLink><br/>
+            <asp:HyperLink Name="hlImage" NavigationUrl="https://github.com/" ImageUrl="Images/github-logo.png" ImageHeight="50" ImageWidth="50"></asp:HyperLink><br/>
             <asp:Literal Name="litGreeting"></asp:Literal><br />
             <asp:Button Name="btnPost" CssClass="btn btn-primary" Text="Post"></asp:Button>
             <span class="label label-info">
